@@ -67,19 +67,7 @@ namespace Food_delivery_library
             Product_Categories item = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        item = db.Query<Product_Categories>("SELECT * FROM Product_Categories WHERE Product_category_Id = @Product_category_Id", new { Id }, transaction).FirstOrDefault();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                item = db.Query<Product_Categories>("SELECT * FROM Product_Categories WHERE Product_category_Id = @Product_category_Id", new { Id }).FirstOrDefault();
             }
             return item;
         }
@@ -89,19 +77,7 @@ namespace Food_delivery_library
             List<Product_Categories> coll = new List<Product_Categories>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        coll = db.Query<Product_Categories>("SELECT * FROM Product_Categories", transaction).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                coll = db.Query<Product_Categories>("SELECT * FROM Product_Categories").ToList();
             }
             return coll;
         }

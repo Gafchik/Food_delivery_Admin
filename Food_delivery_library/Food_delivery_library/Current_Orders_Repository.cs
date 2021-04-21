@@ -88,19 +88,7 @@ namespace Food_delivery_library
             Current_Orders item = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        item = db.Query<Current_Orders>("SELECT * FROM Current_Orders WHERE Current_Order_Id = @Current_Order_Id", new { Id }, transaction).FirstOrDefault();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                item = db.Query<Current_Orders>("SELECT * FROM Current_Orders WHERE Current_Order_Id = @Current_Order_Id", new { Id }).FirstOrDefault();
             }
             item.Product = products_Repository.Get(item.Current_Order_Product_Id);
             item.User = user_Repository.Get(item.Current_Order_User_Id);
@@ -112,19 +100,7 @@ namespace Food_delivery_library
             List<Current_Orders> coll = new List<Current_Orders>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        coll = db.Query<Current_Orders>("SELECT * FROM Current_Orders", transaction).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                coll = db.Query<Current_Orders>("SELECT * FROM Current_Orders").ToList();
             }
             coll.ForEach(i => i.Product = products_Repository.Get(i.Current_Order_Product_Id));
             coll.ForEach(i => i.User = user_Repository.Get(i.Current_Order_User_Id));

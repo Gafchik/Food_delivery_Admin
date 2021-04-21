@@ -79,7 +79,12 @@ namespace Food_delivery_library
 
         public User Get(int Id)
         {
-            throw new System.NotImplementedException();
+            User item = null;
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                item = db.Query<User>("SELECT * FROM Users WHERE User_Id = @User_Id", new { Id }).FirstOrDefault();
+            }
+            return item;
         }
 
         public IEnumerable<User> GetColl()
@@ -87,19 +92,7 @@ namespace Food_delivery_library
             List<User> coll = new List<User>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        coll = db.Query<User>("SELECT * FROM Users", transaction).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                coll = db.Query<User>("SELECT * FROM Users").ToList();
             }
             return coll;
         }

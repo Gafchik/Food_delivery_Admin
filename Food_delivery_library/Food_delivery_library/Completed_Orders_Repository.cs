@@ -88,19 +88,7 @@
             Completed_Orders item = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        item = db.Query<Completed_Orders>("SELECT * FROM Completed_Orders WHERE Completed_Order_Id = @Completed_Order_Id", new { Id }, transaction).FirstOrDefault();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                item = db.Query<Completed_Orders>("SELECT * FROM Completed_Orders WHERE Completed_Order_Id = @Completed_Order_Id", new { Id }).FirstOrDefault();
             }
             item.Product = products_Repository.Get(item.Completed_Order_Product_Id);
             item.User = user_Repository.Get(item.Completed_Order_User_Id);
@@ -112,19 +100,7 @@
             List<Completed_Orders> coll = new List<Completed_Orders>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        coll = db.Query<Completed_Orders>("SELECT * FROM Completed_Orders", transaction).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                coll = db.Query<Completed_Orders>("SELECT * FROM Completed_Orders").ToList();
             }
             coll.ForEach(i => i.Product = products_Repository.Get(i.Completed_Order_Product_Id));
             coll.ForEach(i => i.User = user_Repository.Get(i.Completed_Order_User_Id));

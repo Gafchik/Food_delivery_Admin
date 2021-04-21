@@ -29,19 +29,7 @@ namespace Food_delivery_library
             List<Admin> coll = new List<Admin>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        coll = db.Query<Admin>("SELECT * FROM Admins", transaction).ToList();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
+                coll = db.Query<Admin>("SELECT * FROM Admins").ToList();             
             }
             return coll;
         }
@@ -51,19 +39,7 @@ namespace Food_delivery_library
             Admin  item = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                using (var transaction = db.BeginTransaction())
-                {
-                    try
-                    {
-                        item = db.Query<Admin>("SELECT * FROM Admins WHERE Admins_Id = @Admins_Id", new { Id },transaction).FirstOrDefault();
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }                  
+                item = db.Query<Admin>("SELECT * FROM Admins WHERE Admins_Id = @Admins_Id", new { Id }).FirstOrDefault();
             }
             return  item;
         }
