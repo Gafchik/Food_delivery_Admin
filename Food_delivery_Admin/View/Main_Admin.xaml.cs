@@ -23,6 +23,31 @@ namespace Food_delivery_Admin.View
         {
             InitializeComponent();
             DataContext = new ModelView.ViewModel();
+            checkEdit.Checked += CheckEdit_Checked;
+            checkEdit.Unchecked += CheckEdit_Unchecked;          
         }
+      
+        private void CheckEdit_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (UIElement el in stack.Children)
+            {
+                if (el is TextBox)
+                    (el as TextBox).IsEnabled = false;
+                if (el is ComboBox)
+                    (el as ComboBox).IsEnabled = false;
+            }
+        }
+
+        private void CheckEdit_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (UIElement el in stack.Children)
+            {
+                if (el is TextBox)
+                    (el as TextBox).IsEnabled = true;
+                if (el is ComboBox)
+                    (el as ComboBox).IsEnabled = true;
+            }
+        }       
+
     }
 }

@@ -6,7 +6,49 @@
         xmlns:local="clr-namespace:Food_delivery_Admin.View"
         mc:Ignorable="d"
         Title="Main_Admin" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="LightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel >
+            <Menu DockPanel.Dock="Top" >
+                <MenuItem Header="Действия">
+                    <MenuItem  Header="Добавить нового администратора"    />
+                    
+                </MenuItem>
+            </Menu>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="serch_box" Text="{Binding Serch_srt_Admin, UpdateSourceTrigger=PropertyChanged}"  Width="200"   FontSize="15" />
+            </StackPanel>
+            <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Admins}"  Background="LightBlue"
+                     SelectedItem="{Binding Selected_Admin}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock  Text="{Binding Path=Admins_Surname}" FontSize="15"></TextBlock>
+                            <TextBlock  Text="{Binding Path=Admins_Name}" FontSize="13" ></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" >
+            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный администратор" FontSize="20"></TextBlock>
+            <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Логин" FontSize="15"></TextBlock>
+            <TextBox  IsEnabled="False"  Text="{Binding Selected_Admin.Admins_Login, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBlock  FontWeight="Bold"  Background="LightBlue" FontSize="15" Text="Пароль"></TextBlock>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Admin.Admins_Password, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Имя"></TextBlock>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Admin.Admins_Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Фамилия"></TextBlock>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Admin.Admins_Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <StackPanel Orientation="Horizontal">
+                <CheckBox x:Name="checkEdit" FontWeight="Bold" Content="Редактирование" FontSize="15" />
+                <Button Command="{Binding Edit_admin}" Margin="30 0 0 0" Content="Сохранить" FontWeight="Bold" FontSize="15"/>
+                <Button Command="{Binding Dell_admin}" Margin="30 0 0 0" Content="Удалить" FontWeight="Bold" FontSize="15"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

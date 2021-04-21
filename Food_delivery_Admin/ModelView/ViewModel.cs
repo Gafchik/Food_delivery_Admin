@@ -1,6 +1,8 @@
 ﻿using Food_delivery_Admin.View;
 using Food_delivery_Admin.View.ViewModel;
 using Food_delivery_library;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -76,15 +78,100 @@ namespace Food_delivery_Admin.ModelView
         }
         #endregion
 
-        #region full prop bind
 
+        #region Admin
+
+        #region full prop bind
         private static Admin curent_Admin;
 
-        public  Admin Curent_Admin
+        public Admin Curent_Admin
         {
             get { return curent_Admin; }
             set { curent_Admin = value; OnPropertyChanged("Curent_Admin"); }
         }
+
+        private Admin selected_Admin;
+
+        public Admin Selected_Admin
+        {
+            get { return selected_Admin; }
+            set { selected_Admin = value; OnPropertyChanged("Selected_Admin"); }
+        }
+
+        private string serch_srt_Admin;
+
+        public string Serch_srt_Admin
+        {
+            get { return serch_srt_Admin; }
+            set
+            {
+                serch_srt_Admin = value; OnPropertyChanged("Serch_srt");
+                if (Admins != null)
+                    GC.Collect(GC.GetGeneration(Admins));
+                Admins = new ObservableCollection<Admin>(admin_repository.GetColl().ToList().FindAll(i => i.Admins_Surname.ToLower().Contains(serch_srt_Admin.ToLower())));
+                OnPropertyChanged("Admins");
+
+            }
+        }
+        #endregion
+
+        #region comand
+
+        private RelayCommand edit_admin;
+        public RelayCommand Edit_admin
+        {
+            get
+            {
+                return edit_admin ?? (edit_admin = new RelayCommand(act =>
+                {
+                    try
+                    {
+                        admin_repository.Update(Selected_Admin);
+                        MessageBox.Show("Информация обновлена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }                                       
+                }));
+            }
+        }
+
+        private RelayCommand dell_admin;
+        public RelayCommand Dell_admin
+        {
+            get
+            {
+                return dell_admin ?? (dell_admin = new RelayCommand(act =>
+                {
+                    try
+                    {
+                        if (MessageBox.Show("Удалить игру?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                            return;
+                        admin_repository.Delete(Selected_Admin);
+                        if (Admins != null)
+                            GC.Collect(GC.GetGeneration(Admins));
+                        Admins = new ObservableCollection<Admin>(admin_repository.GetColl());
+
+                       OnPropertyChanged("Admins");
+                        MessageBox.Show("Информация удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }));
+            }
+        }
+
+        #endregion
+
+
+        #endregion
+
+        #region full prop bind
+
+
 
         private string temp_login;
         public string Temp_login
@@ -101,6 +188,10 @@ namespace Food_delivery_Admin.ModelView
             set { temp_password = value; OnPropertyChanged("temp_password"); }
         }
         #endregion
+
+
+      
+
 
         #region Sing in
         private RelayCommand sing_in;

@@ -31,7 +31,7 @@
                      FontSize="50"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
-                   Text="{Binding Curent_Admin.Admins_Surname,
+                   Text="{Binding Curent_Admin.Admins_Name,
             UpdateSourceTrigger=PropertyChanged}"                
                    />
         <Button Grid.Column="0" Grid.Row="1"
