@@ -117,6 +117,15 @@ namespace Food_delivery_Admin.ModelView
 
         #region comand
 
+        private RelayCommand go_to_Main;
+        public RelayCommand Go_to_Main
+        {
+            get
+            {
+                return go_to_Main ?? (go_to_Main = new RelayCommand(act => { new Window_Main().Show(); ((Window)act).Close(); }));
+            }
+        }
+
         private RelayCommand edit_admin;
         public RelayCommand Edit_admin
         {
@@ -227,6 +236,7 @@ namespace Food_delivery_Admin.ModelView
             }
         }
         #endregion
+
 
         #region Exit
         private RelayCommand exit;

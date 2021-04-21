@@ -47,7 +47,8 @@ namespace Food_delivery_Admin.View
                 if (el is ComboBox)
                     (el as ComboBox).IsEnabled = true;
             }
-        }       
+        }
 
+       
     }
 }
