@@ -30,16 +30,13 @@ namespace Food_delivery_Admin.ModelView
         public ObservableCollection<Product> Products { get; set; }
         private Products_Repository products_Repository = new Products_Repository();
 
-
-
-
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged; // ивент обновления
         public void OnPropertyChanged([CallerMemberName] string prop = "")
            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         #endregion
 
-       
+        #region init
         public ViewModel()
         {
             InitializeComponent();
@@ -77,9 +74,9 @@ namespace Food_delivery_Admin.ModelView
              OnPropertyChanged("Products");
 
         }
+        #endregion
 
-
-
+        #region full prop bind
         private string temp_login;
         public string Temp_login
         {
@@ -94,6 +91,7 @@ namespace Food_delivery_Admin.ModelView
             get { return temp_password; }
             set { temp_password = value; OnPropertyChanged("temp_password"); }
         }
+        #endregion
 
         #region Sing in
         private RelayCommand sing_in;
