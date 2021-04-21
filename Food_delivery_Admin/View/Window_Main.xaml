@@ -7,14 +7,74 @@
         mc:Ignorable="d"
         Title="Window_Main" Height="450" Width="800"
         x:Name="Main">
-    <Grid>
-        <Button
+    <Grid Background="LightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock   Grid.Row="0" Grid.Column="0"
+                   Margin="20" 
+                     FontSize="50"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                   Text="{Binding Curent_Admin.Admins_Surname,
+            UpdateSourceTrigger=PropertyChanged}"                
+                   />
+        <TextBlock   Grid.Row="0" Grid.Column="1"
+                   Margin="20" 
+                     FontSize="50"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Center"
+                   Text="{Binding Curent_Admin.Admins_Surname,
+            UpdateSourceTrigger=PropertyChanged}"                
+                   />
+        <Button Grid.Column="0" Grid.Row="1"
+                   Content="Администраторы"
+                    FontSize="40"
+                Command="{Binding Go_to_Admins}"
+                CommandParameter="{Binding ElementName=Main}"
+                 Margin=" 10"
+        ></Button>
+        <Button Grid.Column="1" Grid.Row="1"
+                   Content="Заказы"
+                    FontSize="50"
+                Command="{Binding Exit}"
+                CommandParameter="{Binding ElementName=Main}"
+                 Margin=" 10"
+        ></Button>
+        <Button Grid.Column="0" Grid.Row="2"
+                   Content="Товары"
+                    FontSize="50"
+                Command="{Binding Exit}"
+                CommandParameter="{Binding ElementName=Main}"
+                 Margin=" 10"
+        ></Button>
+        <Button Grid.Column="1" Grid.Row="2"
+                   Content="Клиенты"
+                    FontSize="50"
+                Command="{Binding Exit}"
+                CommandParameter="{Binding ElementName=Main}"
+                 Margin=" 10"
+        ></Button>
+        <Button Grid.Column="0" Grid.Row="3"
+                   Content="Категории"
+                    FontSize="50"
+                Command="{Binding Exit}"
+                CommandParameter="{Binding ElementName=Main}"
+                 Margin=" 10"
+        ></Button>
+        <Button Grid.Column="1" Grid.Row="3"
                    Content="Вход"
                     FontSize="50"
                 Command="{Binding Exit}"
                 CommandParameter="{Binding ElementName=Main}"
-                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
+                 Margin=" 10"
         ></Button>
     </Grid>
 </Window>

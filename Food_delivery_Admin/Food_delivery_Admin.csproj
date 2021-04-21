@@ -84,6 +84,9 @@
     <Compile Include="View\Authorization_Window.xaml.cs">
       <DependentUpon>Authorization_Window.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Main_Admin.xaml.cs">
+      <DependentUpon>Main_Admin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Window_Main.xaml.cs">
       <DependentUpon>Window_Main.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\Authorization_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Main_Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

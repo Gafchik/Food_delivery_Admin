@@ -77,6 +77,15 @@ namespace Food_delivery_Admin.ModelView
         #endregion
 
         #region full prop bind
+
+        private static Admin curent_Admin;
+
+        public  Admin Curent_Admin
+        {
+            get { return curent_Admin; }
+            set { curent_Admin = value; OnPropertyChanged("Curent_Admin"); }
+        }
+
         private string temp_login;
         public string Temp_login
         {
@@ -103,6 +112,8 @@ namespace Food_delivery_Admin.ModelView
                 {
                     if(Admins.ToList().Exists(i=> i.Admins_Login == Temp_login) && Admins.ToList().Exists(i => i.Admins_Password == Temp_password))
                     {
+                        Curent_Admin = Admins.ToList().FirstOrDefault(i => i.Admins_Login == Temp_login);
+                        OnPropertyChanged("Curent_Admin");
                         new Window_Main().Show();
                         ((Window)act).Close();
                        
@@ -115,13 +126,30 @@ namespace Food_delivery_Admin.ModelView
         }
         #endregion
 
+        #region Main admin
+        private RelayCommand go_to_Admins;
+        public RelayCommand Go_to_Admins
+        {
+            get
+            {
+                return go_to_Admins ?? (go_to_Admins = new RelayCommand(act => { new Main_Admin().Show(); ((Window)act).Close(); }));
+            }
+        }
+        #endregion
+
         #region Exit
         private RelayCommand exit;
         public RelayCommand Exit
         {
-            get { return exit ?? (exit = new RelayCommand(act => ((Window)act).Close())); }         
+            get
+            {
+                return exit ?? (exit = new RelayCommand(act =>
+                 {
+                      new Authorization_Window().Show();
+                       ((Window)act).Close();
+                 }));
+            }
         }
         #endregion
     }
 }
-
