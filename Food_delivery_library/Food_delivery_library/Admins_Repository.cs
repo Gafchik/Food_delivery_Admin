@@ -19,7 +19,7 @@ namespace Food_delivery_library
         public string Admins_Name { get; set; }
         public string Admins_Surname { get; set; }
     }
-    public partial class Admins_Repository : IRepository<Admin>
+    public  partial class Admins_Repository : IRepository<Admin>
     {
 
 
