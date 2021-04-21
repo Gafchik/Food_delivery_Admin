@@ -15,7 +15,7 @@
         <StackPanel >
             <Menu DockPanel.Dock="Top" >
                 <MenuItem Header="Действия">
-                    <MenuItem  Header="Добавить нового администратора"    />
+                    <MenuItem  Header="Добавить нового администратора" Command="{Binding New_admin}"   />
                     
                 </MenuItem>
             </Menu>

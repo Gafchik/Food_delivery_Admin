@@ -1,4 +1,5 @@
 ﻿using Food_delivery_Admin.View;
+using Food_delivery_Admin.View.Admin_View;
 using Food_delivery_Admin.View.ViewModel;
 using Food_delivery_library;
 using System;
@@ -21,6 +22,9 @@ namespace Food_delivery_Admin.ModelView
         private Current_Orders_Repository current_Orders_Repository = new Current_Orders_Repository();
         
        public ObservableCollection<Completed_Orders> Completed_Orders { get; set; }
+
+       
+
         private Completed_Orders_Repository completed_Orders_Repository = new Completed_Orders_Repository();
 
         public ObservableCollection<User> Users { get; set; }
@@ -79,26 +83,28 @@ namespace Food_delivery_Admin.ModelView
         #endregion
 
 
+
         #region Admin
 
         #region full prop bind
-        private static Admin curent_Admin;
+        private static Admin curent_Admin; // админ который вошел
 
-        public Admin Curent_Admin
+        public Admin Curent_Admin 
         {
             get { return curent_Admin; }
             set { curent_Admin = value; OnPropertyChanged("Curent_Admin"); }
         }
 
-        private Admin selected_Admin;
+        private Admin selected_Admin; // выбраный админ для списка
 
         public Admin Selected_Admin
         {
             get { return selected_Admin; }
             set { selected_Admin = value; OnPropertyChanged("Selected_Admin"); }
         }
+             
 
-        private string serch_srt_Admin;
+        private string serch_srt_Admin; // строка поиска админа
 
         public string Serch_srt_Admin
         {
@@ -117,16 +123,50 @@ namespace Food_delivery_Admin.ModelView
 
         #region comand
 
-        private RelayCommand go_to_Main;
-        public RelayCommand Go_to_Main
+        #region go to admin main
+        private RelayCommand go_to_Admins; // запуск окна настройки админов
+        public RelayCommand Go_to_Admins
         {
             get
             {
-                return go_to_Main ?? (go_to_Main = new RelayCommand(act => { new Window_Main().Show(); ((Window)act).Close(); }));
+                return go_to_Admins ?? (go_to_Admins = new RelayCommand(act => { new Main_Admin().Show(); ((Window)act).Close(); }));
             }
         }
+        #endregion
 
-        private RelayCommand edit_admin;
+        #region new admin
+        private RelayCommand new_admin; // открыть окно  с админами
+        public RelayCommand New_admin
+        {
+            get { return new_admin ?? (new_admin = new RelayCommand(act => { new New_Admin().ShowDialog(); InitializeComponent(); })); }
+        }
+        private RelayCommand cansel_new_Admin; // отмена  создания нового админа
+        public RelayCommand Cansel_new_Admin
+        {
+            get { return cansel_new_Admin ?? (cansel_new_Admin = new RelayCommand(act => { (act as Window).Close();})); }
+        }
+        internal void Add_new_Admin(string log, string pass, string name, string surname, Window window) //кнопка добавления нового админа
+        {
+            if (MessageBox.Show("Добавить администартора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+            if (log == "" && pass == "" && name == "" && surname == "")
+                MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            admin_repository.Create(new Admin
+            {
+                Admins_Login = log,
+                Admins_Name =pass,
+                Admins_Password = name,
+                Admins_Surname = surname
+            });            
+            window.Close();
+            OnPropertyChanged("Admins");
+        }
+       
+
+        #endregion
+
+        #region edit admin
+        private RelayCommand edit_admin; // изменение выбраного админа
         public RelayCommand Edit_admin
         {
             get
@@ -146,7 +186,11 @@ namespace Food_delivery_Admin.ModelView
             }
         }
 
-        private RelayCommand dell_admin;
+        #endregion
+
+        #region dell admin
+
+        private RelayCommand dell_admin; // удаление выбраного админа
         public RelayCommand Dell_admin
         {
             get
@@ -175,8 +219,11 @@ namespace Food_delivery_Admin.ModelView
 
         #endregion
 
+        #endregion
+
 
         #endregion
+
 
         #region full prop bind
 
@@ -197,9 +244,6 @@ namespace Food_delivery_Admin.ModelView
             set { temp_password = value; OnPropertyChanged("temp_password"); }
         }
         #endregion
-
-
-      
 
 
         #region Sing in
@@ -224,19 +268,20 @@ namespace Food_delivery_Admin.ModelView
                 }));
             }
         }
-        #endregion
+        #endregion    
 
-        #region Main admin
-        private RelayCommand go_to_Admins;
-        public RelayCommand Go_to_Admins
+        #region go to main
+
+        private RelayCommand go_to_Main;
+        public RelayCommand Go_to_Main
         {
             get
             {
-                return go_to_Admins ?? (go_to_Admins = new RelayCommand(act => { new Main_Admin().Show(); ((Window)act).Close(); }));
+                return go_to_Main ?? (go_to_Main = new RelayCommand(act => { new Window_Main().Show(); ((Window)act).Close(); }));
             }
         }
-        #endregion
 
+        #endregion
 
         #region Exit
         private RelayCommand exit;

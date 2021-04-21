@@ -81,10 +81,13 @@
     </Compile>
     <Compile Include="ModelView\ViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="View\Admin_View\New_Admin.xaml.cs">
+      <DependentUpon>New_Admin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Authorization_Window.xaml.cs">
       <DependentUpon>Authorization_Window.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Main_Admin.xaml.cs">
+    <Compile Include="View\Admin_View\Main_Admin.xaml.cs">
       <DependentUpon>Main_Admin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Window_Main.xaml.cs">
@@ -119,11 +122,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Admin_View\New_Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Authorization_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Main_Admin.xaml">
+    <Page Include="View\Admin_View\Main_Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
