@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace Food_delivery_Admin.ModelView
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModel_Admin : INotifyPropertyChanged
     {
       
         public ObservableCollection<Admin> Admins { get; set; }
@@ -22,16 +22,11 @@ namespace Food_delivery_Admin.ModelView
         private Current_Orders_Repository current_Orders_Repository = new Current_Orders_Repository();
         
        public ObservableCollection<Completed_Orders> Completed_Orders { get; set; }
-
-       
-
         private Completed_Orders_Repository completed_Orders_Repository = new Completed_Orders_Repository();
 
         public ObservableCollection<User> Users { get; set; }
         private User_Repository user_repository = new User_Repository();
 
-        public ObservableCollection<Product_Categories> Product_Categories { get; set; }
-        private Product_Categories_Repository poduct_Categories_Repository = new Product_Categories_Repository();
 
         public ObservableCollection<Product> Products { get; set; }
         private Products_Repository products_Repository = new Products_Repository();
@@ -43,10 +38,8 @@ namespace Food_delivery_Admin.ModelView
         #endregion
 
         #region init
-        public ViewModel()
-        {
-            InitializeComponent();
-        }
+        public ViewModel_Admin() { InitializeComponent(); }
+
         public void InitializeComponent()
         {
             if (Admins != null)
@@ -68,11 +61,7 @@ namespace Food_delivery_Admin.ModelView
                 Users.Clear();
             Users = new ObservableCollection<User>(user_repository.GetColl());
              OnPropertyChanged("Users");
-
-            if (Product_Categories != null)
-                Product_Categories.Clear();
-            Product_Categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
-             OnPropertyChanged("Product_Categories");
+           
 
             if (Products != null)
                 Products.Clear();
@@ -199,7 +188,7 @@ namespace Food_delivery_Admin.ModelView
                 {
                     try
                     {
-                        if (MessageBox.Show("Удалить игру?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        if (MessageBox.Show("Удалить администратора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
                         admin_repository.Delete(Selected_Admin);
                         if (Admins != null)

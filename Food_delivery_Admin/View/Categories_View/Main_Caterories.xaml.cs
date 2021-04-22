@@ -1,5 +1,4 @@
-﻿using Food_delivery_Admin.View.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Food_delivery_Admin.View
+namespace Food_delivery_Admin.View.Category_View
 {
     /// <summary>
-    /// Логика взаимодействия для Window_Main.xaml
+    /// Логика взаимодействия для Main_Caterories.xaml
     /// </summary>
-    public partial class Window_Main : Window
+    public partial class Main_Caterories : Window
     {
-        public Window_Main()
+        public Main_Caterories()
         {
             InitializeComponent();
-            DataContext = new ModelView.ViewModel_Admin();
         }
-       
     }
 }

@@ -22,7 +22,7 @@ namespace Food_delivery_Admin.View
         public Main_Admin()
         {
             InitializeComponent();
-            DataContext = new ModelView.ViewModel();
+            DataContext = new ModelView.ViewModel_Admin();
             checkEdit.Checked += CheckEdit_Checked;
             checkEdit.Unchecked += CheckEdit_Unchecked;          
         }

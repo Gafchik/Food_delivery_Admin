@@ -22,11 +22,11 @@ namespace Food_delivery_Admin.View.Admin_View
         public New_Admin()
         {
             InitializeComponent();
-            DataContext = new ModelView.ViewModel();
+            DataContext = new ModelView.ViewModel_Admin();
             Add.Click += Add_Click;
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e) => (DataContext as ModelView.ViewModel).Add_new_Admin(Login.Text,Pass.Text,Name.Text,Sur.Text, new_admin);
+        private void Add_Click(object sender, RoutedEventArgs e) => (DataContext as ModelView.ViewModel_Admin).Add_new_Admin(Login.Text,Pass.Text,Name.Text,Sur.Text, new_admin);
 
     }
 }

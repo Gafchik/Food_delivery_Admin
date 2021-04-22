@@ -79,7 +79,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ModelView\ViewModel.cs" />
+    <Compile Include="ModelView\Admin_ModelView\ViewModel_Admin.cs" />
+    <Compile Include="ModelView\Categories_Model_View\ViewModel_Categories.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="View\Admin_View\New_Admin.xaml.cs">
       <DependentUpon>New_Admin.xaml</DependentUpon>
@@ -89,6 +90,12 @@
     </Compile>
     <Compile Include="View\Admin_View\Main_Admin.xaml.cs">
       <DependentUpon>Main_Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Categories_View\Main_Caterories.xaml.cs">
+      <DependentUpon>Main_Caterories.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Categories_View\New_Categories.xaml.cs">
+      <DependentUpon>New_Categories.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Window_Main.xaml.cs">
       <DependentUpon>Window_Main.xaml</DependentUpon>
@@ -134,6 +141,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Categories_View\Main_Caterories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Categories_View\New_Categories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Window_Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +160,7 @@
       <Name>Food_delivery_library</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

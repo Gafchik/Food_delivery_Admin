@@ -23,7 +23,7 @@ namespace Food_delivery_Admin.View
         public Authorization_Window()
         {
             InitializeComponent();
-            DataContext = new ModelView.ViewModel();
+            DataContext = new ModelView.ViewModel_Admin();
         }
     }
 }
