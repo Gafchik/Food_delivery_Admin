@@ -145,8 +145,8 @@ namespace Food_delivery_Admin.ModelView
             admin_repository.Create(new Admin
             {
                 Admins_Login = log,
-                Admins_Name =pass,
-                Admins_Password = name,
+                Admins_Name =name,
+                Admins_Password = pass,
                 Admins_Surname = surname
             });            
             window.Close();
