@@ -62,8 +62,6 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
         }
         #endregion
 
-
-
         #region new category
         private RelayCommand new_category; // открыть окно  с админами
         public RelayCommand New_category
@@ -142,7 +140,6 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
         }
 
         #endregion
-
 
         #region go to main
 

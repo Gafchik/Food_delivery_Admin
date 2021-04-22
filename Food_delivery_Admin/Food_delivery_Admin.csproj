@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="ModelView\Admin_ModelView\ViewModel_Admin.cs" />
     <Compile Include="ModelView\Categories_Model_View\ViewModel_Categories.cs" />
+    <Compile Include="ModelView\Products_ModelView\ViewModel_Producs.cs" />
     <Compile Include="ModelView\Users_Model_View\ViewModel_Users.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="View\Admin_View\New_Admin.xaml.cs">
@@ -97,6 +98,12 @@
     </Compile>
     <Compile Include="View\Categories_View\New_Categories.xaml.cs">
       <DependentUpon>New_Categories.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Products_View\Main_Products.xaml.cs">
+      <DependentUpon>Main_Products.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Products_View\New_Products.xaml.cs">
+      <DependentUpon>New_Products.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Users_View\Main_User.xaml.cs">
       <DependentUpon>Main_User.xaml</DependentUpon>
@@ -153,6 +160,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Categories_View\New_Categories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Products_View\Main_Products.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Products_View\New_Products.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

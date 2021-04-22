@@ -1,6 +1,7 @@
 ﻿using Food_delivery_Admin.View;
 using Food_delivery_Admin.View.Admin_View;
 using Food_delivery_Admin.View.Category_View;
+using Food_delivery_Admin.View.Products_View;
 using Food_delivery_Admin.View.Users_View;
 using Food_delivery_Admin.View.ViewModel;
 using Food_delivery_library;
@@ -27,8 +28,7 @@ namespace Food_delivery_Admin.ModelView
         private Completed_Orders_Repository completed_Orders_Repository = new Completed_Orders_Repository();
        
 
-        public ObservableCollection<Product> Products { get; set; }
-        private Products_Repository products_Repository = new Products_Repository();
+       
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged; // ивент обновления
@@ -57,12 +57,8 @@ namespace Food_delivery_Admin.ModelView
              OnPropertyChanged("Completed_Orders");
 
             
-           
-
-            if (Products != null)
-                Products.Clear();
-            Products = new ObservableCollection<Product>(products_Repository.GetColl());
-             OnPropertyChanged("Products");
+          
+            
 
         }
         #endregion
@@ -237,6 +233,17 @@ namespace Food_delivery_Admin.ModelView
             get
             {
                 return go_to_categories ?? (go_to_categories = new RelayCommand(act => { new Main_Categories().Show(); ((Window)act).Close(); }));
+            }
+        }
+        #endregion
+
+        #region go to products
+        private RelayCommand go_to_products; // запуск окна настройки категорий
+        public RelayCommand Go_to_Products
+        {
+            get
+            {
+                return go_to_products ?? (go_to_products = new RelayCommand(act => { new Main_Products().Show(); ((Window)act).Close(); }));
             }
         }
         #endregion

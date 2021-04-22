@@ -51,7 +51,7 @@
         <Button Grid.Column="0" Grid.Row="2"
                    Content="Товары"
                     FontSize="50"
-                Command="{Binding Exit}"
+                Command="{Binding Go_to_Products}"
                 CommandParameter="{Binding ElementName=Main}"
                  Margin=" 10"
         ></Button>
@@ -70,7 +70,7 @@
                  Margin=" 10"
         ></Button>
         <Button Grid.Column="1" Grid.Row="3"
-                   Content="Вход"
+                   Content="Выход"
                     FontSize="50"
                 Command="{Binding Exit}"
                 CommandParameter="{Binding ElementName=Main}"

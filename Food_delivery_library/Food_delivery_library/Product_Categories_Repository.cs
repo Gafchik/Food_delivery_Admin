@@ -67,7 +67,7 @@ namespace Food_delivery_library
             Product_Categories item = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                item = db.Query<Product_Categories>("SELECT * FROM Product_Categories WHERE Product_category_Id = @Product_category_Id", new { Id }).FirstOrDefault();
+                item = db.Query<Product_Categories>("SELECT * FROM Product_Categories WHERE Product_category_Id = @Product_category_Id", new { Product_category_Id = Id }).FirstOrDefault();
             }
             return item;
         }

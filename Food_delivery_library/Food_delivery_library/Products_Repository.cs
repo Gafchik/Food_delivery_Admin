@@ -9,16 +9,14 @@ namespace Food_delivery_library
 {
 
     public partial class Product
-    {       
+    {     
         public int Product_Id { get; set; }
-
         public int Product_category_Id { get; set; }
         public string Product_Name { get; set; }
-
         public double Product_Price { get; set; }
-
         public double Product_Discount { get; set; }
-        public virtual Product_Categories Product_category { get; set; } 
+        public virtual Product_Categories Product_category { get; set; }
+       
     }
 
     public partial class Products_Repository : IRepository<Product>
@@ -36,7 +34,7 @@ namespace Food_delivery_library
                     try
                     {
                         var sqlQuery = "INSERT INTO  Products (Product_category_Id ,Product_Name, Product_Price, Product_Discount)" +
-                                 "VALUES(@Product_category_Id, @Product_Name, @Product_Price, @Product_Discount); SELECT CAST(SCOPE_IDENTITY() as int)";
+                                 " VALUES(@Product_category_Id, @Product_Name, @Product_Price, @Product_Discount)";
                         db.Execute(sqlQuery,
                            new
                            {
