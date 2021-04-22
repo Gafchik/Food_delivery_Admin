@@ -1,6 +1,7 @@
 ﻿using Food_delivery_Admin.View;
 using Food_delivery_Admin.View.Admin_View;
 using Food_delivery_Admin.View.Category_View;
+using Food_delivery_Admin.View.Users_View;
 using Food_delivery_Admin.View.ViewModel;
 using Food_delivery_library;
 using System;
@@ -24,10 +25,7 @@ namespace Food_delivery_Admin.ModelView
         
        public ObservableCollection<Completed_Orders> Completed_Orders { get; set; }
         private Completed_Orders_Repository completed_Orders_Repository = new Completed_Orders_Repository();
-
-        public ObservableCollection<User> Users { get; set; }
-        private User_Repository user_repository = new User_Repository();
-
+       
 
         public ObservableCollection<Product> Products { get; set; }
         private Products_Repository products_Repository = new Products_Repository();
@@ -58,10 +56,7 @@ namespace Food_delivery_Admin.ModelView
             Completed_Orders = new ObservableCollection<Completed_Orders>(completed_Orders_Repository.GetColl());
              OnPropertyChanged("Completed_Orders");
 
-            if (Users != null)
-                Users.Clear();
-            Users = new ObservableCollection<User>(user_repository.GetColl());
-             OnPropertyChanged("Users");
+            
            
 
             if (Products != null)
@@ -71,8 +66,6 @@ namespace Food_delivery_Admin.ModelView
 
         }
         #endregion
-
-
 
         #region Admin
 
@@ -85,26 +78,26 @@ namespace Food_delivery_Admin.ModelView
             set { curent_Admin = value; OnPropertyChanged("Curent_Admin"); }
         }
 
-        private Admin selected_Admin; // выбраный админ для списка
+        private Admin selected_item; // выбраный админ для списка
 
-        public Admin Selected_Admin
+        public Admin Selected_Item
         {
-            get { return selected_Admin; }
-            set { selected_Admin = value; OnPropertyChanged("Selected_Admin"); }
+            get { return selected_item; }
+            set { selected_item = value; OnPropertyChanged("Selected_Item"); }
         }
              
 
-        private string serch_srt_Admin; // строка поиска админа
+        private string serch_str; // строка поиска админа
 
-        public string Serch_srt_Admin
+        public string Serch_str
         {
-            get { return serch_srt_Admin; }
+            get { return serch_str; }
             set
             {
-                serch_srt_Admin = value; OnPropertyChanged("Serch_srt");
+                serch_str = value; OnPropertyChanged("Serch_srt");
                 if (Admins != null)
                     GC.Collect(GC.GetGeneration(Admins));
-                Admins = new ObservableCollection<Admin>(admin_repository.GetColl().ToList().FindAll(i => i.Admins_Surname.ToLower().Contains(serch_srt_Admin.ToLower())));
+                Admins = new ObservableCollection<Admin>(admin_repository.GetColl().ToList().FindAll(i => i.Admins_Surname.ToLower().Contains(serch_str.ToLower())));
                 OnPropertyChanged("Admins");
 
             }
@@ -113,23 +106,14 @@ namespace Food_delivery_Admin.ModelView
 
         #region comand
 
-        #region go to admin main
-        private RelayCommand go_to_Admins; // запуск окна настройки админов
-        public RelayCommand Go_to_Admins
-        {
-            get
-            {
-                return go_to_Admins ?? (go_to_Admins = new RelayCommand(act => { new Main_Admin().Show(); ((Window)act).Close(); }));
-            }
-        }
-        #endregion 
+      
       
 
         #region new admin
-        private RelayCommand new_admin; // открыть окно  с админами
-        public RelayCommand New_admin
+        private RelayCommand new_item; // открыть окно  с админами
+        public RelayCommand New_item
         {
-            get { return new_admin ?? (new_admin = new RelayCommand(act => { new New_Admin().ShowDialog(); InitializeComponent(); })); }
+            get { return new_item ?? (new_item = new RelayCommand(act => { new New_Admin().ShowDialog(); InitializeComponent(); })); }
         }
         private RelayCommand cansel_new; // отмена  создания нового админа
         public RelayCommand Cansel_new
@@ -157,16 +141,16 @@ namespace Food_delivery_Admin.ModelView
         #endregion
 
         #region edit admin
-        private RelayCommand edit_admin; // изменение выбраного админа
-        public RelayCommand Edit_admin
+        private RelayCommand edit; // изменение выбраного админа
+        public RelayCommand Edit
         {
             get
             {
-                return edit_admin ?? (edit_admin = new RelayCommand(act =>
+                return edit ?? (edit = new RelayCommand(act =>
                 {
                     try
                     {
-                        admin_repository.Update(Selected_Admin);
+                        admin_repository.Update(Selected_Item);
                         MessageBox.Show("Информация обновлена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception)
@@ -181,18 +165,18 @@ namespace Food_delivery_Admin.ModelView
 
         #region dell admin
 
-        private RelayCommand dell_admin; // удаление выбраного админа
-        public RelayCommand Dell_admin
+        private RelayCommand dell; // удаление выбраного админа
+        public RelayCommand Dell
         {
             get
             {
-                return dell_admin ?? (dell_admin = new RelayCommand(act =>
+                return dell ?? (dell = new RelayCommand(act =>
                 {
                     try
                     {
                         if (MessageBox.Show("Удалить администратора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
-                        admin_repository.Delete(Selected_Admin);
+                        admin_repository.Delete(Selected_Item);
                         if (Admins != null)
                             GC.Collect(GC.GetGeneration(Admins));
                         Admins = new ObservableCollection<Admin>(admin_repository.GetColl());
@@ -215,8 +199,7 @@ namespace Food_delivery_Admin.ModelView
 
         #endregion
 
-
-        #region full prop bind
+        #region login password  in
 
 
 
@@ -236,6 +219,16 @@ namespace Food_delivery_Admin.ModelView
         }
         #endregion
 
+        #region go to admin main
+        private RelayCommand go_to_Admins; // запуск окна настройки админов
+        public RelayCommand Go_to_Admins
+        {
+            get
+            {
+                return go_to_Admins ?? (go_to_Admins = new RelayCommand(act => { new Main_Admin().Show(); ((Window)act).Close(); }));
+            }
+        }
+        #endregion 
 
         #region go to categories
         private RelayCommand go_to_categories; // запуск окна настройки категорий
@@ -246,6 +239,19 @@ namespace Food_delivery_Admin.ModelView
                 return go_to_categories ?? (go_to_categories = new RelayCommand(act => { new Main_Categories().Show(); ((Window)act).Close(); }));
             }
         }
+        #endregion
+
+        #region go to Users
+
+        private RelayCommand go_to_user; // запуск окна настройки Клиентов
+        public RelayCommand Go_to_user
+        {
+            get
+            {
+                return go_to_user ?? (go_to_user = new RelayCommand(act => { new Main_User().Show(); ((Window)act).Close(); }));
+            }
+        }
+
         #endregion
 
         #region Sing in

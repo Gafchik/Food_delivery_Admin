@@ -24,12 +24,12 @@
                     CommandParameter="{Binding ElementName=Categories_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
                 <TextBox x:Name="serch_box"
-                         Text="{Binding Serch_srt, UpdateSourceTrigger=PropertyChanged}" 
+                         Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200" HorizontalAlignment="Right" Margin="20 0 0 0"
                          FontSize="15" />
             </StackPanel>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Product_categories}"  Background="LightBlue"
-                     SelectedItem="{Binding Selected_category}">
+                     SelectedItem="{Binding Selected_Item}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -43,13 +43,13 @@
         <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" >
             <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраная категория" FontSize="20"></TextBlock>
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Название" FontSize="15"></TextBlock>
-            <TextBox  IsEnabled="False"  Text="{Binding Selected_category.Product_category_Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBox  IsEnabled="False"  Text="{Binding Selected_Item.Product_category_Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             
 
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="checkEdit" FontWeight="Bold" Content="Редактирование" FontSize="15" />
-                <Button Command="{Binding Edit_category}" Margin="30 0 0 0" Content="Сохранить" FontWeight="Bold" FontSize="15"/>
-                <Button Command="{Binding Dell_category}" Margin="30 0 0 0" Content="Удалить" FontWeight="Bold" FontSize="15"/>
+                <Button Command="{Binding Edit}" Margin="30 0 0 0" Content="Сохранить" FontWeight="Bold" FontSize="15"/>
+                <Button Command="{Binding Dell}" Margin="30 0 0 0" Content="Удалить" FontWeight="Bold" FontSize="15"/>
             </StackPanel>
         </StackPanel>
     </Grid>

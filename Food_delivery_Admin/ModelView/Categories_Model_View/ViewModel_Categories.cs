@@ -36,26 +36,26 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
 
         #region full prop bind
              
-        private Product_Categories selected_category; // выбраный админ для списка
+        private Product_Categories selected_item; // выбраный админ для списка
 
-        public Product_Categories Selected_category
+        public Product_Categories Selected_Item
         {
-            get { return selected_category; }
-            set { selected_category = value; OnPropertyChanged("Selected_category"); }
+            get { return selected_item; }
+            set { selected_item = value; OnPropertyChanged("Selected_Item"); }
         }
 
 
-        private string serch_srt; // строка поиска админа
+        private string serch_str; // строка поиска админа
 
-        public string Serch_srt
+        public string Serch_str
         {
-            get { return serch_srt; }
+            get { return serch_str; }
             set
             {
-                serch_srt = value; OnPropertyChanged("Serch_srt");
+                serch_str = value; OnPropertyChanged("Serch_srt");
                 if (Product_categories != null)
                     GC.Collect(GC.GetGeneration(Product_categories));
-                Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl().ToList().FindAll(i => i.Product_category_Name.ToLower().Contains(serch_srt.ToLower())));
+                Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl().ToList().FindAll(i => i.Product_category_Name.ToLower().Contains(serch_str.ToLower())));
                 OnPropertyChanged("Product_categories");
 
             }
@@ -90,16 +90,16 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
         #endregion
 
         #region edit category
-        private RelayCommand edit_category; // изменение выбраного админа
-        public RelayCommand Edit_category
+        private RelayCommand edit; // изменение выбраного админа
+        public RelayCommand Edit
         {
             get
             {
-                return edit_category ?? (edit_category = new RelayCommand(act =>
+                return edit ?? (edit = new RelayCommand(act =>
                 {
                     try
                     {
-                        poduct_Categories_Repository.Update(Selected_category);
+                        poduct_Categories_Repository.Update(Selected_Item);
                         MessageBox.Show("Информация обновлена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception)
@@ -114,18 +114,18 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
 
         #region dell category
 
-        private RelayCommand dell_category; // удаление выбраного админа
-        public RelayCommand Dell_category
+        private RelayCommand dell; // удаление выбраного админа
+        public RelayCommand Dell
         {
             get
             {
-                return dell_category ?? (dell_category = new RelayCommand(act =>
+                return dell ?? (dell = new RelayCommand(act =>
                 {
                     try
                     {
                         if (MessageBox.Show("Удалить категорию?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
-                        poduct_Categories_Repository.Delete(Selected_category);
+                        poduct_Categories_Repository.Delete(Selected_Item);
                         if (Product_categories != null)
                             GC.Collect(GC.GetGeneration(Product_categories));
                         Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());

@@ -106,9 +106,9 @@ namespace Food_delivery_library
                 {
                     try
                     {
-                        var sqlQuery = "UPDATE  Users SET User_Name = @User_Name ,User_Surname =  @User_Surname," +
-                            " User_Phone =  @User_Phone, User_Bank_card = @User_Bank_card)" +
-                            " User_Email =  @User_Email, User_Temp_password = @User_Temp_password)" +
+                        var sqlQuery = "UPDATE  Users SET User_Name = @User_Name, User_Surname = @User_Surname," +
+                            " User_Phone =  @User_Phone, User_Bank_card = @User_Bank_card," +
+                            " User_Email =  @User_Email, User_Temp_password = @User_Temp_password" +
                             " WHERE User_Id = @User_Id";
                         db.Execute(sqlQuery,
                            new

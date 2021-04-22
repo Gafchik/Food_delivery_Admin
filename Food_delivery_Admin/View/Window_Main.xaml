@@ -58,7 +58,7 @@
         <Button Grid.Column="1" Grid.Row="2"
                    Content="Клиенты"
                     FontSize="50"
-                Command="{Binding Exit}"
+                Command="{Binding Go_to_user}"
                 CommandParameter="{Binding ElementName=Main}"
                  Margin=" 10"
         ></Button>
