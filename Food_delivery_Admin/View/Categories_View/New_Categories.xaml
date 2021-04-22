@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Category_View"
         mc:Ignorable="d"
-        Title="New_Category" Height="450" Width="800">
-    <Grid>
+        Title="New_Category" Height="200" Width="800" x:Name="new_categories">
+    <Grid Margin="0 10 0 0" Background="LightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <TextBlock Text="Имя категории" FontSize="20"  Grid.Row="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+
+
+
+
+
+        <TextBox  x:Name="Name" 
+                  FontSize="20" Grid.Column="1"                    
+                       Grid.Row="0"  Margin="30 30 20 20" />
         
+        <Button x:Name="Add" Grid.Column="1"                   
+                    Margin="20 20 20 20"              
+                    Grid.Row="5">
+            <TextBlock FontSize="20" Height="26">Добавить</TextBlock>
+        </Button>
+
+        <Button Grid.Column="0"  Command="{Binding Cansel_new}"   CommandParameter="{Binding ElementName=new_categories}"              
+                    Margin="20 20 20 20"            
+                    Grid.Row="5">
+            <TextBlock FontSize="20" Height="26">Отмена</TextBlock>
+        </Button>
+
     </Grid>
 </Window>

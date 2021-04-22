@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View"
         mc:Ignorable="d"
-        Title="Window_Main" Height="450" Width="800"
+        Title="Главное меню" Height="450" Width="800"
         x:Name="Main">
     <Grid Background="LightBlue">
         <Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
         <Button Grid.Column="0" Grid.Row="3"
                    Content="Категории"
                     FontSize="50"
-                Command="{Binding Exit}"
+                Command="{Binding Go_to_Categories}"
                 CommandParameter="{Binding ElementName=Main}"
                  Margin=" 10"
         ></Button>

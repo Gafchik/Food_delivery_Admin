@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Food_delivery_Admin.ModelView.Categories_Model_View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,10 @@ namespace Food_delivery_Admin.View.Category_View
         public New_Category()
         {
             InitializeComponent();
+            DataContext = new ViewModel_Categories();
+            Add.Click += Add_Click;
         }
+
+        private void Add_Click(object sender, RoutedEventArgs e) => (DataContext as ViewModel_Categories).Add_new(Name.Text, new_categories);
     }
 }

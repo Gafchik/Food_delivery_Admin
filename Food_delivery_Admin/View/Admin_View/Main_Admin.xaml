@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View"
         mc:Ignorable="d"
-        Title="Main_Admin" Height="450" Width="800"
+        Title="Меню администратора" Height="450" Width="800"
         x:Name="Admin_Main">
     <Grid Background="LightBlue"  >
         <Grid.ColumnDefinitions>
@@ -15,14 +15,14 @@
         <StackPanel >
             <Menu DockPanel.Dock="Top" >
                 <MenuItem Header="Действия">
-                    <MenuItem  Header="Добавить нового администратора" Command="{Binding New_admin}"   />
+                    <MenuItem  Header="Добавить" Command="{Binding New_admin}"   />
                     
                 </MenuItem>
             </Menu>
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Admin_Main}"
-                    Content="Назад" HorizontalAlignment="Left" Margin="50 0 20 0" />
+                    Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
                 <TextBox x:Name="serch_box"
                          Text="{Binding Serch_srt_Admin, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200" HorizontalAlignment="Right" Margin="20 0 0 0"

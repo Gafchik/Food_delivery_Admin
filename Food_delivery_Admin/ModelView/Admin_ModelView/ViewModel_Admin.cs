@@ -1,5 +1,6 @@
 ﻿using Food_delivery_Admin.View;
 using Food_delivery_Admin.View.Admin_View;
+using Food_delivery_Admin.View.Category_View;
 using Food_delivery_Admin.View.ViewModel;
 using Food_delivery_library;
 using System;
@@ -121,7 +122,8 @@ namespace Food_delivery_Admin.ModelView
                 return go_to_Admins ?? (go_to_Admins = new RelayCommand(act => { new Main_Admin().Show(); ((Window)act).Close(); }));
             }
         }
-        #endregion
+        #endregion 
+      
 
         #region new admin
         private RelayCommand new_admin; // открыть окно  с админами
@@ -129,12 +131,12 @@ namespace Food_delivery_Admin.ModelView
         {
             get { return new_admin ?? (new_admin = new RelayCommand(act => { new New_Admin().ShowDialog(); InitializeComponent(); })); }
         }
-        private RelayCommand cansel_new_Admin; // отмена  создания нового админа
-        public RelayCommand Cansel_new_Admin
+        private RelayCommand cansel_new; // отмена  создания нового админа
+        public RelayCommand Cansel_new
         {
-            get { return cansel_new_Admin ?? (cansel_new_Admin = new RelayCommand(act => { (act as Window).Close();})); }
+            get { return cansel_new ?? (cansel_new = new RelayCommand(act => { (act as Window).Close();})); }
         }
-        internal void Add_new_Admin(string log, string pass, string name, string surname, Window window) //кнопка добавления нового админа
+        internal void Add_new(string log, string pass, string name, string surname, Window window) //кнопка добавления нового админа
         {
             if (MessageBox.Show("Добавить администартора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
@@ -234,6 +236,17 @@ namespace Food_delivery_Admin.ModelView
         }
         #endregion
 
+
+        #region go to categories
+        private RelayCommand go_to_categories; // запуск окна настройки категорий
+        public RelayCommand Go_to_Categories
+        {
+            get
+            {
+                return go_to_categories ?? (go_to_categories = new RelayCommand(act => { new Main_Categories().Show(); ((Window)act).Close(); }));
+            }
+        }
+        #endregion
 
         #region Sing in
         private RelayCommand sing_in;

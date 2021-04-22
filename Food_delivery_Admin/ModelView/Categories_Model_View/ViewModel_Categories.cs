@@ -41,7 +41,7 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
         public Product_Categories Selected_category
         {
             get { return selected_category; }
-            set { selected_category = value; OnPropertyChanged("Selected_Admin"); }
+            set { selected_category = value; OnPropertyChanged("Selected_category"); }
         }
 
 
@@ -64,18 +64,18 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
 
 
 
-        #region new admin
+        #region new category
         private RelayCommand new_category; // открыть окно  с админами
         public RelayCommand New_category
         {
             get { return new_category ?? (new_category = new RelayCommand(act => { new New_Category().ShowDialog(); InitializeComponent(); })); }
         }
-        private RelayCommand cansel_new_category; // отмена  создания нового админа
-        public RelayCommand Cansel_new_category
+        private RelayCommand cansel_new; // отмена  создания нового админа
+        public RelayCommand Cansel_new
         {
-            get { return cansel_new_category ?? (cansel_new_category = new RelayCommand(act => { (act as Window).Close(); })); }
+            get { return cansel_new ?? (cansel_new = new RelayCommand(act => { (act as Window).Close(); })); }
         }
-        internal void Add_new_new_category(string category_name, Window window) //кнопка добавления нового админа
+        internal void Add_new(string category_name, Window window) //кнопка добавления нового админа
         {
             if (MessageBox.Show("Добавить категорию?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
@@ -130,7 +130,7 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
                             GC.Collect(GC.GetGeneration(Product_categories));
                         Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
 
-                        OnPropertyChanged("Admins");
+                        OnPropertyChanged("Product_categories");
                         MessageBox.Show("Информация удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception)

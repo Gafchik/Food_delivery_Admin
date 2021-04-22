@@ -91,8 +91,8 @@
     <Compile Include="View\Admin_View\Main_Admin.xaml.cs">
       <DependentUpon>Main_Admin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Categories_View\Main_Caterories.xaml.cs">
-      <DependentUpon>Main_Caterories.xaml</DependentUpon>
+    <Compile Include="View\Categories_View\Main_Categories.xaml.cs">
+      <DependentUpon>Main_Categories.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Categories_View\New_Categories.xaml.cs">
       <DependentUpon>New_Categories.xaml</DependentUpon>
@@ -141,7 +141,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Categories_View\Main_Caterories.xaml">
+    <Page Include="View\Categories_View\Main_Categories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
