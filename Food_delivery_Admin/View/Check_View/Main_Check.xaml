@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Main_Check" Height="450" Width="800"
     x:Name="Check_Main">
-    <Grid Background="LightBlue"  >
+    <Grid x:Name="grid" Background="LightBlue"  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -36,30 +36,31 @@
                     Content="Назад" HorizontalAlignment="Left" Margin="20 5 0 5"  />
         <Button Command="{Binding New_item}"         Grid.Row="1" Grid.Column="0"          
                     Content="Новый заказ" HorizontalAlignment="Right"  Margin="0 5 10 5" />
-        <TextBox x:Name="serch_box" Grid.Row="2" Grid.Column="0"
+        <TextBox x:Name="serch_box" Grid.Row="3" Grid.Column="0"
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}"                       
                          Margin="5 7" FontSize="15" />
- 
-            <ListBox Grid.Column="0" Grid.Row="3" Grid.RowSpan="14"
+
+        <ListBox Grid.Column="0" Grid.Row="4" Grid.RowSpan="14"
                      HorizontalAlignment="Stretch" ItemsSource="{Binding Current_Сhecks}"  
                      Background="LightBlue"
                      SelectedItem="{Binding Selected_Item_Current}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
                         <TextBlock  Text="{Binding Path=Current_Сhecks_Id}" FontSize="15">
                         </TextBlock>
                         <TextBlock  Text="{Binding Path=user.User_Phone}"
                                     FontSize="13" ></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        
-       
-            <TextBlock  FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock  FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"                        
                         Background="Blue"  Text="Текущие заказы" FontSize="20"></TextBlock>
-            <TextBlock  FontWeight="Bold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" 
+
+        <!--<TabControl x:Name="current_control" >-->
+
+        <TextBlock  FontWeight="Bold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" 
                         VerticalAlignment="Center"
                         Text="Номер заказа" FontSize="15"></TextBlock>
         <TextBox  IsEnabled="False"  Grid.Row="2" Grid.Column="1" Margin="10 7"                
@@ -69,74 +70,72 @@
         <TextBlock  FontWeight="Bold" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" 
                        VerticalAlignment="Center"  FontSize="15" Text="Администратор"></TextBlock>
 
-        <ListBox Grid.Column="1" Grid.Row="4" Margin="10 7"
+        <ListView Grid.Column="1" Grid.Row="4" Margin="10 7"
                      HorizontalAlignment="Stretch" ItemsSource="{Binding Admins}"  
-                     Background="LightBlue"
+                   
                      SelectedItem="{Binding Selected_Item_Current.admin}">
-            <ListBox.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock  Text="{Binding Path=Admins_Name}" FontSize="15">
+                        <TextBlock  Text="{Binding Path=Admins_Name}" FontSize="10">
                         </TextBlock>
                         <TextBlock  Text="{Binding Path=Admins_Surname}"
-                                    FontSize="13" ></TextBlock>
+                                    FontSize="9" ></TextBlock>
                     </StackPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        
-        
-            <TextBlock  FontWeight="Bold" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center"
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <TextBlock  FontWeight="Bold" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center"
                       VerticalAlignment="Center"  FontSize="15" Text="Дата"></TextBlock>
         <TextBox IsEnabled="False" Grid.Column="1" Grid.Row="6"  Margin="10 7" 
                  Text="{Binding  Selected_Item_Current.Current_Сhecks_Date,
             UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-            <TextBlock  FontWeight="Bold" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"
+        <TextBlock  FontWeight="Bold" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"
                     VerticalAlignment="Center"    FontSize="15" Text="Клиент"></TextBlock>
 
-        <ListBox Grid.Column="1" Grid.Row="8" Margin="10 7"
-                     HorizontalAlignment="Stretch" ItemsSource="{Binding Users}"  
-                     Background="LightBlue"
+        <ListView Grid.Column="1" Grid.Row="8" 
+                     HorizontalAlignment="Stretch"  
+                    
                      SelectedItem="{Binding Selected_Item_Current.user}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock  Text="{Binding Path=User_Surname}" FontSize="15">
-                        </TextBlock>
-                        <TextBlock  Text="{Binding Path=User_Name}"
-                                    FontSize="13" ></TextBlock>
-                        <TextBlock  Text="{Binding Path=User_Phone}"
-                                    FontSize="13" ></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox> 
+        </ListView>
         <TextBlock  FontWeight="Bold" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center"
                     VerticalAlignment="Center"    FontSize="15" Text="Список продуктов"></TextBlock>
 
         <ListBox Grid.Column="1" Grid.Row="10" Margin="10 7" Grid.RowSpan="2"
                      HorizontalAlignment="Stretch" ItemsSource="{Binding Current_Ch_orders}"  
-                     Background="LightBlue"
+                     
                      SelectedItem="{Binding Selected_Item_Current_Order}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock  Text="{Binding Path=product.Product_Name}" FontSize="15">
+                        <TextBlock  Text="{Binding Path=product.Product_Name}" FontSize="10">
                         </TextBlock>
                         <TextBlock  Text="{Binding Path=Orders_Count}"
-                                    FontSize="13" ></TextBlock>
+                                    FontSize="9" ></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-            
-       <CheckBox x:Name="checkEdit" Grid.Row="12" Grid.Column="1" HorizontalAlignment="Center"
+
+        <!--<CheckBox x:Name="checkEdit" Grid.Row="14" Grid.Column="1" HorizontalAlignment="Center"
                  VerticalAlignment="Center"
-                 FontWeight="Bold" Content="Редактирование" FontSize="14" />
-       <Button Command="{Binding Edit}" Margin="30 0 0 0" Content="Сохранить" FontWeight="Bold" FontSize="15"/>
-       <Button Command="{Binding Dell}" Margin="30 0 0 0" Content="Удалить" FontWeight="Bold" FontSize="15"/>
-       <Button Command="{Binding Add_Order}" Margin="30 0 0 0" Content="Удалить" FontWeight="Bold" FontSize="15"/>
-           
+                 FontWeight="Bold" Content="Редактирование" FontSize="14" />-->
+
+        <Button Command="{Binding Add_order}"  Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center"
+               Content=" Добавить"  FontSize="10"  Margin="20 0"/>
+        <Button Command="{Binding Dell_order}"  Grid.Column="1" Grid.Row="12" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="Удалить"  FontSize="10" Margin="20 0" />
+
+        <!--</TabControl>-->
+
+
+        <Button Command="{Binding Edit}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"
+               Content="Сохранить"  FontSize="10" Margin="20 0"/>
+        <Button Command="{Binding Dell}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                Content="Удалить"  FontSize="10"  Margin="20 0"/>
+
 
     </Grid>
 </Window>

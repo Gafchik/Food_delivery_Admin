@@ -120,7 +120,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
         #region full prop bind
 
-        private ObservableCollection<Order> current_Ch_orders; // список заказов для выбраного чека
+        private ObservableCollection<Order> current_Ch_orders = new ObservableCollection<Order>(); // список заказов для выбраного чека
 
         public ObservableCollection<Order> Current_Ch_orders
         {

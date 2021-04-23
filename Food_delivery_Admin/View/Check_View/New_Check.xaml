@@ -6,7 +6,83 @@
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Check_View"
         mc:Ignorable="d"
         Title="New_Check" Height="450" Width="800">
-    <Grid>
+    <Grid Background="LightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock  FontWeight="Bold" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"  FontSize="15" Text="Администратор"></TextBlock>
+
+        <ListView Grid.Column="1" Grid.Row="0" Margin="10 7"
+                     HorizontalAlignment="Stretch" ItemsSource="{Binding Admins}"  
+                     Background="LightBlue"
+                     SelectedItem="{Binding Selected_Item_Current.admin}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock  Text="{Binding Path=Admins_Name}" FontSize="10">
+                        </TextBlock>
+                        <TextBlock  Text="{Binding Path=Admins_Surname}"
+                                    FontSize="9" ></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
         
+        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"    FontSize="15" Text="Клиент"></TextBlock>
+
+        <ListView Grid.Column="1" Grid.Row="2" 
+                     HorizontalAlignment="Stretch"  
+                     Background="LightBlue"
+                     SelectedItem="{Binding Selected_Item_Current.user}">
+        </ListView>
+        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"    FontSize="15" Text="Список продуктов"></TextBlock>
+
+        <ListBox Grid.Column="1" Grid.Row="3" Margin="10 7" Grid.RowSpan="2"
+                     HorizontalAlignment="Stretch" ItemsSource="{Binding Current_Ch_orders}"  
+                     Background="LightBlue"
+                     SelectedItem="{Binding Selected_Item_Current_Order}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock  Text="{Binding Path=product.Product_Name}" FontSize="10">
+                        </TextBlock>
+                        <TextBlock  Text="{Binding Path=Orders_Count}"
+                                    FontSize="9" ></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Command="{Binding Add_order}"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"
+               Content=" Добавить"  FontSize="10"  Margin="50 0"/>
+        <Button Command="{Binding Dell_order}"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="Удалить"  FontSize="10" Margin="50 0" />
+        <Button x:Name="Add" Grid.Column="1"                   
+                       Margin="10 5"          
+                    Grid.Row="6">
+            <TextBlock FontSize="15" Height="26">Добавить</TextBlock>
+        </Button>
+
+        <Button Grid.Column="0"  Command="{Binding Cansel_new}"
+                CommandParameter="{Binding ElementName=new_admin}"              
+                            Margin="10 5"   
+                    Grid.Row="6">
+            <TextBlock FontSize="15" Height="26">Отмена</TextBlock>
+        </Button>
     </Grid>
 </Window>
