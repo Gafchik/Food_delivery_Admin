@@ -80,8 +80,8 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
             if (MessageBox.Show("Добавить клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
             if (phone == "" && e_mail == "" && name == "" && surname == "")
-                MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            user_repository.Create(new User
+            { MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
+                user_repository.Create(new User
             {
                User_Name =name,
                User_Surname = surname,
@@ -132,7 +132,7 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                 {
                     try
                     {
-                        if (MessageBox.Show("Удалить администратора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        if (MessageBox.Show("Удалить клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
                         user_repository.Delete(Selected_Item);
                         if (Users != null)

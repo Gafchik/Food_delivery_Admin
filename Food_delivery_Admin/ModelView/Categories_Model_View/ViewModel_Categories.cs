@@ -77,8 +77,8 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
         {
             if (MessageBox.Show("Добавить категорию?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-            if (category_name == "" )
-                MessageBox.Show("Поле не заполнено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            if (category_name == "")
+            {  MessageBox.Show("Поле не заполнено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
             poduct_Categories_Repository.Create(new Product_Categories { Product_category_Name = category_name });     
             window.Close();
             OnPropertyChanged("Product_categories");

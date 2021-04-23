@@ -1,13 +1,15 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Food_delivery_library
 {
-    public partial class User
+    public partial class User : INotifyPropertyChanged
     {
         public int User_Id { get; set; }
         public string User_Name { get; set; }
@@ -16,6 +18,10 @@ namespace Food_delivery_library
         public string User_Bank_card { get; set; }
         public string User_Email { get; set; }
         public string User_Temp_password { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+
     }
     public partial class User_Repository : IRepository<User>
     {

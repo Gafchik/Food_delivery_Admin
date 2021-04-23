@@ -45,14 +45,16 @@
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Категория" FontSize="15"></TextBlock>
 
             <ComboBox ItemsSource="{Binding Product_categories}"
-                      SelectedItem="{Binding Selected_categories}"
+                      SelectedItem="{Binding Selected_Item.Product_category,
+                UpdateSourceTrigger=PropertyChanged}"
                       IsEnabled="False"
                        Grid.Column="1" Margin="10 5 10 0" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock  
-                                Text="{Binding Path=Product_category_Name }"
+                                Text="{Binding Path=Product_category_Name, 
+                                UpdateSourceTrigger=PropertyChanged}"
                                         FontSize="15"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
@@ -63,7 +65,7 @@
             <TextBox IsEnabled="False" Text="{Binding  Selected_Item.Product_Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Цена"></TextBlock>
             <TextBox IsEnabled="False" Text="{Binding  Selected_Item.Product_Price, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Скидка"></TextBlock>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Скидка %"></TextBlock>
             <TextBox IsEnabled="False" Text="{Binding  Selected_Item.Product_Discount, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <StackPanel Orientation="Horizontal">

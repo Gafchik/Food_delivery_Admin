@@ -121,8 +121,8 @@ namespace Food_delivery_Admin.ModelView
             if (MessageBox.Show("Добавить администартора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
             if (log == "" && pass == "" && name == "" && surname == "")
-                MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            admin_repository.Create(new Admin
+            { MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
+                admin_repository.Create(new Admin
             {
                 Admins_Login = log,
                 Admins_Name =name,

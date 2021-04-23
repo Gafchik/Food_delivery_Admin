@@ -2,21 +2,26 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Food_delivery_library
 {
   
-    public partial class Admin
+    public partial class Admin : INotifyPropertyChanged
     {     
         public int Admins_Id { get; set; }
         public string Admins_Login { get; set; }
         public string Admins_Password { get; set; }
         public string Admins_Name { get; set; }
         public string Admins_Surname { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
     public  partial class Admins_Repository : IRepository<Admin>
     {

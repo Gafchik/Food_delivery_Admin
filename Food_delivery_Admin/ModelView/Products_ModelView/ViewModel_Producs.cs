@@ -33,15 +33,17 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
 
         public void InitializeComponent()
         {
-            if (Products != null)
-                Products.Clear();
-            Products = new ObservableCollection<Product>(products_Repository.GetColl());
-            OnPropertyChanged("Products");
-
             if (Product_categories != null)
                 Product_categories.Clear();
             Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
             OnPropertyChanged("Product_Categories");
+
+            if (Products != null)
+                Products.Clear();
+            Products = new ObservableCollection<Product>(products_Repository.GetColl());
+            OnPropertyChanged("Products");
+            Products.ToList().ForEach(i => i.Product_category = Product_categories.ToList().Find(j => j.Product_category_Id == i.Product_category_Id));
+
         }
         #endregion
 
@@ -55,18 +57,10 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
         public Product Selected_Item
         {
             get { return selected_item; }
-            set { selected_item = value; OnPropertyChanged("Selected_Item");
-                Selected_categories = selected_item.Product_category;
-            }
+            set { selected_item = value; OnPropertyChanged("Selected_Item"); }
+            
         }
-
-        private Product_Categories selected_categories; // выбраный админ для списка
-
-        public Product_Categories Selected_categories
-        {
-            get { return selected_categories; }
-            set { selected_categories = value; OnPropertyChanged("Selected_categories"); }
-        }
+   
 
         private string serch_str; // строка поиска 
 
@@ -99,22 +93,30 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
         {
             get { return cansel_new ?? (cansel_new = new RelayCommand(act => { (act as Window).Close(); })); }
         }
-        internal void Add_new(string name, string discount, string price, Product_Categories categories, Window window) //кнопка добавления нового админа
+        internal void Add_new(Product_Categories categories, string name, string discount, string price, Window window) //кнопка добавления нового админа
         {
             if (MessageBox.Show("Добавить продукт?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
             if (name == "" && discount == "" && price == "" && categories == null)
-                MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            products_Repository.Create(new Product
+            { MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
+            try
             {
-                Product_Name = name,
-                Product_Discount = Convert.ToDouble(discount.Replace('.',',')),
-                Product_Price = Convert.ToDouble(price.Replace('.', ',')),
-                 Product_category = categories,
-                 Product_category_Id = categories.Product_category_Id
-            }) ;
-            window.Close();
-            OnPropertyChanged("Products");
+                products_Repository.Create(new Product
+                {
+                    Product_Name = name,
+                    Product_Discount = Convert.ToDouble(discount.Replace('.', ',')),
+                    Product_Price = Convert.ToDouble(price.Replace('.', ',')),
+                    Product_category = categories,
+                    Product_category_Id = categories.Product_category_Id
+                });
+                window.Close();
+                OnPropertyChanged("Products");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не правильно введены данные", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);             
+            }
+           
         }
 
 
@@ -133,9 +135,9 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
                         products_Repository.Update(Selected_Item);
                         MessageBox.Show("Информация обновлена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);                       
                     }
                 }));
             }

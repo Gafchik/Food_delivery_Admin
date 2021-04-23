@@ -1,22 +1,29 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Food_delivery_library
 {
 
-    public partial class Product
-    {     
+    public partial class Product : INotifyPropertyChanged
+    {
         public int Product_Id { get; set; }
         public int Product_category_Id { get; set; }
         public string Product_Name { get; set; }
         public double Product_Price { get; set; }
         public double Product_Discount { get; set; }
         public virtual Product_Categories Product_category { get; set; }
-       
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+
+
     }
 
     public partial class Products_Repository : IRepository<Product>
@@ -96,7 +103,7 @@ namespace Food_delivery_library
             {
                 coll = db.Query<Product>("SELECT * FROM Products").ToList();
             }
-            coll.ForEach(i => i.Product_category = repository_Categories.Get(i.Product_category_Id));
+           
             return coll;
         }
 
@@ -110,7 +117,7 @@ namespace Food_delivery_library
                     try
                     {
                         var sqlQuery = "UPDATE  Products SET Product_Name = @Product_Name ,Product_category_Id =  @Product_category_Id," +
-                            " Product_Price =  @Product_Price, Product_Discount = @Product_Discount)" +
+                            " Product_Price =  @Product_Price, Product_Discount = @Product_Discount" +
                             " WHERE Product_Id = @Product_Id";
                         db.Execute(sqlQuery,
                            new

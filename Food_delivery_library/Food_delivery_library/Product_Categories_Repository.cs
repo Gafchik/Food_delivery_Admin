@@ -1,16 +1,23 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Food_delivery_library
 {
-    public partial class Product_Categories
-    {                  
-        public int Product_category_Id { get; set; }     
-        public string Product_category_Name { get; set; }            
+    public partial class Product_Categories : INotifyPropertyChanged
+    {
+        public int Product_category_Id { get; set; }
+        public string Product_category_Name { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+
     }
     public partial class Product_Categories_Repository : IRepository<Product_Categories>
     {
