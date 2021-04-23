@@ -1,12 +1,12 @@
 ﻿using Food_delivery_Admin.View;
 using Food_delivery_Admin.View.Admin_View;
 using Food_delivery_Admin.View.Category_View;
+using Food_delivery_Admin.View.Check_View;
 using Food_delivery_Admin.View.Products_View;
 using Food_delivery_Admin.View.Users_View;
 using Food_delivery_Admin.View.ViewModel;
 using Food_delivery_library;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -244,7 +244,7 @@ namespace Food_delivery_Admin.ModelView
         {
             get
             {
-                return go_to_orders ?? (go_to_orders = new RelayCommand(act => { new Main_User().Show(); ((Window)act).Close(); }));
+                return go_to_orders ?? (go_to_orders = new RelayCommand(act => { new Main_Check().Show(); ((Window)act).Close(); }));
             }
         }
 
