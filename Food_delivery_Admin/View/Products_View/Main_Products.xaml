@@ -41,7 +41,7 @@
             </ListBox>
         </StackPanel>
         <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" >
-            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный администратор" FontSize="20"></TextBlock>
+            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный товар" FontSize="20"></TextBlock>
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Категория" FontSize="15"></TextBlock>
 
             <ComboBox ItemsSource="{Binding Product_categories}"

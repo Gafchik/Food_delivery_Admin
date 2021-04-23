@@ -41,7 +41,7 @@
             </ListBox>
         </StackPanel>
         <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" >
-            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный Клиента" FontSize="20"></TextBlock>
+            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный Клиент" FontSize="20"></TextBlock>
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Фамилия" FontSize="15"></TextBlock>
             <TextBox  IsEnabled="False"  Text="{Binding Selected_Item.User_Surname, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             <TextBlock  FontWeight="Bold"  Background="LightBlue" FontSize="15" Text="Имя"></TextBlock>
