@@ -20,16 +20,7 @@ namespace Food_delivery_Admin.ModelView
       
         public ObservableCollection<Admin> Admins { get; set; }
         private Admins_Repository admin_repository = new Admins_Repository();
-
-        public ObservableCollection<Current_Orders> Current_Orders { get; set; }
-        private Current_Orders_Repository current_Orders_Repository = new Current_Orders_Repository();
-        
-       public ObservableCollection<Completed_Orders> Completed_Orders { get; set; }
-        private Completed_Orders_Repository completed_Orders_Repository = new Completed_Orders_Repository();
-       
-
-       
-
+                
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged; // ивент обновления
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -45,21 +36,7 @@ namespace Food_delivery_Admin.ModelView
                 Admins.Clear();
             Admins = new ObservableCollection<Admin>(admin_repository.GetColl());
             OnPropertyChanged("Admins");
-
-            if (Current_Orders != null)
-                Current_Orders.Clear();
-            Current_Orders = new ObservableCollection<Current_Orders>(current_Orders_Repository.GetColl());
-             OnPropertyChanged("Current_Orders");
-
-            if (Completed_Orders != null)
-                Completed_Orders.Clear();
-            Completed_Orders = new ObservableCollection<Completed_Orders>(completed_Orders_Repository.GetColl());
-             OnPropertyChanged("Completed_Orders");
-
-            
-          
-            
-
+     
         }
         #endregion
 
@@ -256,6 +233,18 @@ namespace Food_delivery_Admin.ModelView
             get
             {
                 return go_to_user ?? (go_to_user = new RelayCommand(act => { new Main_User().Show(); ((Window)act).Close(); }));
+            }
+        }
+
+        #endregion
+
+        #region go to Orders
+        private RelayCommand go_to_orders; // запуск окна управления  заказами
+        public RelayCommand Go_to_Orders
+        {
+            get
+            {
+                return go_to_orders ?? (go_to_orders = new RelayCommand(act => { new Main_User().Show(); ((Window)act).Close(); }));
             }
         }
 
