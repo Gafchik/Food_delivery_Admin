@@ -12,6 +12,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
         <StackPanel >
             <Menu DockPanel.Dock="Top" >
                 <MenuItem Header="Действия">

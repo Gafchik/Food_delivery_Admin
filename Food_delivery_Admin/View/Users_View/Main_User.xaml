@@ -11,8 +11,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.RowSpan="5" >
             <Menu DockPanel.Dock="Top" >
                 <MenuItem Header="Действия">
                     <MenuItem  Header="Добавить" Command="{Binding New_item}"   />
@@ -23,9 +32,9 @@
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=User_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
-                <TextBox x:Name="serch_box"
+                <TextBox
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="200" HorizontalAlignment="Right" Margin="20 0 0 0"
+                         Width="80" HorizontalAlignment="Right" Margin="20 0 0 0"
                          FontSize="15" />
             </StackPanel>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Users}"  Background="LightBlue"
@@ -40,8 +49,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" >
-            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный Клиент" FontSize="20"></TextBlock>
+        <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="5" >
+            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Выбраный Клиент" FontSize="15"></TextBlock>
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Фамилия" FontSize="15"></TextBlock>
             <TextBox  IsEnabled="False"  Text="{Binding Selected_Item.User_Surname, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             <TextBlock  FontWeight="Bold"  Background="LightBlue" FontSize="15" Text="Имя"></TextBlock>
@@ -62,5 +71,46 @@
                 <Button Command="{Binding Dell}" Margin="30 0 0 0" Content="Удалить" FontWeight="Bold" FontSize="15"/>
             </StackPanel>
         </StackPanel>
+<!--блокированые пользователи-->
+        <StackPanel Grid.Column="3" Grid.RowSpan="5" >
+            <TextBox 
+                         Text="{Binding Serch_str_Block, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="150" HorizontalAlignment="Center" 
+                         FontSize="15" />
+
+            <ListBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Blocked_Users}"  Background="LightBlue"
+                     SelectedItem="{Binding Selected_Item_Block}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock  Text="{Binding Path= Blocked_user_Surname}" FontSize="15"></TextBlock>
+                            <TextBlock  Text="{Binding Path= Blocked_user_Name}" FontSize="13" ></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel  HorizontalAlignment="Stretch" Grid.Column="5" Grid.RowSpan="5" >
+            <TextBlock  FontWeight="Bold"  Background="Blue"  Text="Заблокированый Клиент" FontSize="15"></TextBlock>
+            <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Фамилия" FontSize="15"></TextBlock>
+            <TextBlock     Text="{Binding Selected_Item_Block.Blocked_user_Surname, UpdateSourceTrigger=PropertyChanged}" ></TextBlock>
+            <TextBlock  FontWeight="Bold"  Background="LightBlue" FontSize="15" Text="Имя"></TextBlock>
+            <TextBlock   Text="{Binding  Selected_Item_Block.Blocked_user_Name, UpdateSourceTrigger=PropertyChanged}" ></TextBlock>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Номер телефона"></TextBlock>
+            <TextBlock   Text="{Binding  Selected_Item_Block.Blocked_user_Phone, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="E mail"></TextBlock>
+            <TextBlock   Text="{Binding  Selected_Item_Block.Blocked_user_Email, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Номер карты"></TextBlock>
+            <TextBlock   Text="{Binding  Selected_Item_Block.Blocked_user_Bank_card, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Временный пароль"></TextBlock>
+            <TextBlock  Text="{Binding  Selected_Item_Block.Blocked_user_Temp_password, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+        </StackPanel>
+        <Button Command="{Binding Block}" Grid.Column="2" Grid.Row="0"
+                   VerticalAlignment="Bottom" Background="Red"
+                    Content="Заблокировать -->" HorizontalAlignment="Center"  />
+        <Button Command="{Binding UnBlock}" Grid.Column="2" Grid.Row="1"
+                   VerticalAlignment="Bottom" Background="LightGreen"
+                     HorizontalAlignment="Center"  Content="&lt;-- Разблокировать" />
     </Grid>
+    
 </Window>

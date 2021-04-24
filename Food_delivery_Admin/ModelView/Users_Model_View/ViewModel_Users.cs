@@ -16,6 +16,9 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
         public ObservableCollection<User> Users { get; set; }
         private User_Repository user_repository = new User_Repository();
 
+        public ObservableCollection<Blocked_user> Blocked_Users { get; set; }
+        private Blocked_users_Repository blocked_users_repository = new Blocked_users_Repository();
+
         #region init
         public ViewModel_Users() { InitializeComponent(); }
 
@@ -25,7 +28,12 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
             if (Users != null)
                 Users.Clear();
             Users = new ObservableCollection<User>(user_repository.GetColl());
-            OnPropertyChanged("Users");         
+            OnPropertyChanged("Users");
+
+            if (Blocked_Users != null)
+                Blocked_Users.Clear();
+            Blocked_Users = new ObservableCollection<Blocked_user>(blocked_users_repository.GetColl());
+            OnPropertyChanged("Blocked_Users");
 
         }
         #endregion
@@ -46,30 +54,110 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
             set { selected_item = value; OnPropertyChanged("Selected_Item"); }
         }
 
+        private Blocked_user selected_item_block; // выбраный клиент для списка
 
-        private string serch_srt; // строка поиска клиента
-
-        public string Serch_srt
+        public Blocked_user Selected_Item_Block
         {
-            get { return serch_srt; }
+            get { return selected_item_block; }
+            set { selected_item_block = value; OnPropertyChanged("Selected_Item_Block"); }
+        }
+
+
+        private string serch_str; // строка поиска клиента
+
+        public string Serch_str
+        {
+            get { return serch_str; }
             set
             {
-                serch_srt = value; OnPropertyChanged("Serch_srt");
+                serch_str = value; OnPropertyChanged("Serch_str");
                 if (Users != null)
                     GC.Collect(GC.GetGeneration(Users));
-                Users = new ObservableCollection<User>(user_repository.GetColl().ToList().FindAll(i => i.User_Surname.ToLower().Contains(serch_srt.ToLower())));
+                Users = new ObservableCollection<User>(user_repository.GetColl().ToList().FindAll(i => i.User_Phone.ToLower().Contains(serch_str.ToLower())));
                 OnPropertyChanged("Users");
+
+            }
+        }
+
+        private string serch_str_block; // строка поиска клиента
+
+        public string Serch_str_Block
+        {
+            get { return serch_str_block; }
+            set
+            {
+                serch_str_block = value; OnPropertyChanged("Serch_str_Block");
+                if (Blocked_Users != null)
+                    GC.Collect(GC.GetGeneration(Blocked_Users));
+                Blocked_Users = new ObservableCollection<Blocked_user>(blocked_users_repository.GetColl().ToList().FindAll(i => i.Blocked_user_Phone.ToLower().Contains(serch_str_block.ToLower())));
+                OnPropertyChanged("Blocked_Users");
 
             }
         }
         #endregion
 
         #region new user
+
+        private RelayCommand block; // открыть окно  с админами
+        public RelayCommand Block
+        {
+            get { return block ?? (block = new RelayCommand(act =>
+            {
+                if (Selected_Item != null)
+                {
+                    Blocked_user temp = new Blocked_user
+                    {
+                        Blocked_user_Name = Selected_Item.User_Name,
+                        Blocked_user_Phone = Selected_Item.User_Phone,
+                        Blocked_user_Email = Selected_Item.User_Email,
+                        Blocked_user_Bank_card = Selected_Item.User_Bank_card,
+                        Blocked_user_Surname = Selected_Item.User_Surname
+                    };
+                    blocked_users_repository.Create(temp);
+                    user_repository.Delete(Selected_Item);
+                    GC.Collect(GC.GetGeneration(temp));
+                }
+                else
+                    MessageBox.Show("Вы не выбрали пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                InitializeComponent();
+            })); }
+        }
+
+
+        private RelayCommand unblock; // открыть окно  с админами
+        public RelayCommand UnBlock
+        {
+            get
+            {
+                return unblock ?? (unblock = new RelayCommand(act =>
+                {
+                    if (Selected_Item_Block != null)
+                    {
+                        User temp = new User
+                        {
+                            User_Name = Selected_Item_Block.Blocked_user_Name,
+                            User_Phone = Selected_Item_Block.Blocked_user_Phone,
+                            User_Email = Selected_Item_Block.Blocked_user_Email,
+                            User_Bank_card = Selected_Item_Block.Blocked_user_Bank_card,
+                            User_Surname = Selected_Item_Block.Blocked_user_Surname
+                        };
+                        user_repository.Create(temp);
+                        blocked_users_repository.Delete(Selected_Item_Block);
+                        GC.Collect(GC.GetGeneration(temp));
+                    }
+                    else
+                        MessageBox.Show("Вы не выбрали пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    InitializeComponent();
+                }));
+            }
+        }
+
         private RelayCommand new_item; // открыть окно  с админами
         public RelayCommand New_item
         {
             get { return new_item ?? (new_item = new RelayCommand(act => { new New_User().ShowDialog(); InitializeComponent(); })); }
         }
+
         private RelayCommand cansel_new; // отмена  создания нового админа
         public RelayCommand Cansel_new
         {

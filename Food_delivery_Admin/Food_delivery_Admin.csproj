@@ -106,6 +106,9 @@
     <Compile Include="View\Check_View\New_Check.xaml.cs">
       <DependentUpon>New_Check.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Check_View\New_Order.xaml.cs">
+      <DependentUpon>New_Order.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Products_View\Main_Products.xaml.cs">
       <DependentUpon>Main_Products.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Check_View\New_Check.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Check_View\New_Order.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
