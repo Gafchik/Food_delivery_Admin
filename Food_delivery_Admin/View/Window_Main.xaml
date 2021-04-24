@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View"
         mc:Ignorable="d"
-        Title="Главное меню" Height="450" Width="800"
+        Title="Главное меню" WindowState="Maximized"
         x:Name="Main">
     <Grid Background="LightBlue">
         <Grid.ColumnDefinitions>

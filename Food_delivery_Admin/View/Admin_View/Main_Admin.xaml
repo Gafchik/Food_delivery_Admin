@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View"
         mc:Ignorable="d"
-        Title="Меню администратора" Height="450" Width="800"
+        Title="Меню администратора" WindowState="Maximized"
         x:Name="Admin_Main">
     <Grid Background="LightBlue"  >
         <Grid.ColumnDefinitions>
@@ -21,12 +21,14 @@
                 </MenuItem>
             </Menu>
             <StackPanel Orientation="Horizontal">
+                
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Admin_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                <TextBlock Margin="0 0 5 0"> по фамилии :</TextBlock>
                 <TextBox x:Name="serch_box"
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="200" HorizontalAlignment="Right" Margin="20 0 0 0"
+                         Width="400" HorizontalAlignment="Right" Margin="20 0 0 0"
                          FontSize="15" />
             </StackPanel>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Admins}"  Background="LightBlue"

@@ -34,23 +34,36 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
         public void InitializeComponent()
         {
             if (Product_categories != null)
-                Product_categories.Clear();
+                GC.Collect(GC.GetGeneration(Product_categories));           
             Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
             OnPropertyChanged("Product_Categories");
 
             if (Products != null)
-                Products.Clear();
+                GC.Collect(GC.GetGeneration(Products));
             Products = new ObservableCollection<Product>(products_Repository.GetColl());
-            OnPropertyChanged("Products");
             Products.ToList().ForEach(i => i.Product_category = Product_categories.ToList().Find(j => j.Product_category_Id == i.Product_category_Id));
+            OnPropertyChanged("Products");
 
         }
         #endregion
 
-       
+
 
         #region full prop bind
-       
+
+
+        private Product_Categories selected_item_categories; // выбраный продукт для списка
+
+        public Product_Categories Selected_Item_Categories
+        {
+            get { return selected_item_categories; }
+            set { selected_item_categories = value; 
+                OnPropertyChanged("Selected_Item_Categories");
+                Serch_str = Serch_str;
+            }
+
+        }
+
 
         private Product selected_item; // выбраный продукт для списка
 
@@ -62,17 +75,30 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
         }
    
 
-        private string serch_str; // строка поиска 
+        private string serch_str = ""; // строка поиска 
 
         public string Serch_str
         {
             get { return serch_str; }
             set
             {
-                serch_str = value; OnPropertyChanged("Serch_srt");
+                serch_str = value; OnPropertyChanged("Serch_srt");               
                 if (Products != null)
                     GC.Collect(GC.GetGeneration(Products));
-                Products = new ObservableCollection<Product>(products_Repository.GetColl().ToList().FindAll(i => i.Product_Name.ToLower().Contains(serch_str.ToLower())));
+                Products = new ObservableCollection<Product>(products_Repository.GetColl());
+                Products.ToList().ForEach(i => i.Product_category = Product_categories.ToList().Find(j => j.Product_category_Id == i.Product_category_Id));              
+                if (Selected_Item_Categories != null)
+                {
+                    Products = new ObservableCollection<Product>(products_Repository.GetColl().ToList()
+                        .FindAll(i => i.Product_category_Id == Selected_Item_Categories.Product_category_Id)
+                        .FindAll(i=> i.Product_Name.ToLower().Contains(serch_str.ToLower())));
+
+                    
+                }
+                else
+                    Products = new ObservableCollection<Product>(products_Repository.GetColl().ToList()
+                        .FindAll(i => i.Product_Name.ToLower().Contains(serch_str.ToLower())));
+                Products.ToList().ForEach(i => i.Product_category = Product_categories.ToList().Find(j => j.Product_category_Id == i.Product_category_Id));
                 OnPropertyChanged("Products");
 
             }

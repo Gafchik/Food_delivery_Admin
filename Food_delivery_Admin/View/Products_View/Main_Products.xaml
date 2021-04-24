@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Products_View"
         mc:Ignorable="d"
-        Title="Main_Products" Height="450" Width="800"
+        Title="Main_Products" WindowState="Maximized"
     x:Name="Products_Main">
     <Grid Background="LightBlue"  >
         <Grid.ColumnDefinitions>
@@ -23,10 +23,23 @@
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Products_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                <TextBlock Margin="0 0 5 0"> по названию :</TextBlock>
                 <TextBox x:Name="serch_box"
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200" HorizontalAlignment="Right" Margin="20 0 0 0"
                          FontSize="15" />
+                <TextBlock Margin="5 0"> категория :</TextBlock>
+                <ComboBox   ItemsSource="{Binding Product_categories}"  Width="100" 
+                     SelectedItem="{Binding Selected_Item_Categories}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock  Text="{Binding Path=Product_category_Name}" FontSize="15"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
             </StackPanel>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Products}"  Background="LightBlue"
                      SelectedItem="{Binding Selected_Item}">

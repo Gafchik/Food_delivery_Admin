@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Category_View"
         mc:Ignorable="d"
-        Title="Категории" Height="300" Width="800"
+        Title="Категории" WindowState="Maximized"
     x:Name="Categories_Main">
     <Grid Background="LightBlue"  >
         <Grid.ColumnDefinitions>
@@ -23,9 +23,10 @@
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Categories_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                <TextBlock Margin="0 0 5 0"> по  названию :</TextBlock>
                 <TextBox x:Name="serch_box"
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="200" HorizontalAlignment="Right" Margin="20 0 0 0"
+                         Width="350" HorizontalAlignment="Right" Margin="20 0 0 0"
                          FontSize="15" />
             </StackPanel>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Product_categories}"  Background="LightBlue"
