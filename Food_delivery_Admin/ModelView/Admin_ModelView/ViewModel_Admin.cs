@@ -149,7 +149,10 @@ namespace Food_delivery_Admin.ModelView
                     {
                         if (MessageBox.Show("Удалить администратора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
-                        admin_repository.Delete(Selected_Item);
+                        if (Selected_Item != null)
+                            admin_repository.Delete(Selected_Item);
+                        else
+                            MessageBox.Show("Нужно выбрать кого удалять", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         if (Admins != null)
                             GC.Collect(GC.GetGeneration(Admins));
                         Admins = new ObservableCollection<Admin>(admin_repository.GetColl());

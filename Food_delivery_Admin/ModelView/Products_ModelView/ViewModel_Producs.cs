@@ -158,6 +158,7 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
                 {
                     try
                     {
+                        Selected_Item.Product_category_Id = Selected_Item.Product_category.Product_category_Id;
                         products_Repository.Update(Selected_Item);
                         MessageBox.Show("Информация обновлена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -184,7 +185,12 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
                     {
                         if (MessageBox.Show("Удалить администратора?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
-                        products_Repository.Delete(Selected_Item);
+                        if (Selected_Item != null)
+                            products_Repository.Delete(Selected_Item);
+                        else
+                            MessageBox.Show("Нужно выбрать что удалять", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                      
                         if (Products != null)
                             GC.Collect(GC.GetGeneration(Products));
                         Products = new ObservableCollection<Product>(products_Repository.GetColl());
@@ -192,9 +198,9 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
                         OnPropertyChanged("Products");
                         MessageBox.Show("Информация удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    catch (Exception)
+                    catch (Exception )
                     {
-                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);         
                     }
                 }));
             }

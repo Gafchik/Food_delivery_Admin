@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -123,7 +124,12 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
                     {
                         if (MessageBox.Show("Удалить категорию?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
-                        poduct_Categories_Repository.Delete(Selected_Item);
+                        if (Selected_Item != null)
+                            poduct_Categories_Repository.Delete(Selected_Item);
+                        else
+                            MessageBox.Show("Нужно выбрать что удалять", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        
                         if (Product_categories != null)
                             GC.Collect(GC.GetGeneration(Product_categories));
                         Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
@@ -131,9 +137,13 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
                         OnPropertyChanged("Product_categories");
                         MessageBox.Show("Информация удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    catch (Exception)
+                    catch(SqlException)
                     {
-                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Нельзя удалить категорию в которой есть продукты", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);                       
                     }
                 }));
             }

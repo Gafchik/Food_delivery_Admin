@@ -222,7 +222,10 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                     {
                         if (MessageBox.Show("Удалить клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             return;
-                        user_repository.Delete(Selected_Item);
+                        if (Selected_Item != null)
+                            user_repository.Delete(Selected_Item);
+                        else
+                            MessageBox.Show("Нужно кого что удалять", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);            
                         if (Users != null)
                             GC.Collect(GC.GetGeneration(Users));
                         Users = new ObservableCollection<User>(user_repository.GetColl());
