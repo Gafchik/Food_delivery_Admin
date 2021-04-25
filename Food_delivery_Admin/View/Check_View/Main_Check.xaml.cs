@@ -24,34 +24,9 @@ namespace Food_delivery_Admin.View.Check_View
         {
             InitializeComponent();
             DataContext = new ViewModel_Check();
-           /* checkEdit.Checked += CheckEdit_Checked;
-            checkEdit.Unchecked += CheckEdit_Unchecked;*/
+          
         }
-
-       /* private void CheckEdit_Unchecked(object sender, RoutedEventArgs e)
-        {
-            foreach (var el in grid.ColumnDefinitions.ToList())
-            {
-                if(el)
-                if (el is TextBox)
-                    (el as TextBox).IsEnabled = false;
-                if (el is ComboBox)
-                    (el as ComboBox).IsEnabled = false;
-            }
-        }
-
-        private void CheckEdit_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (UIElement el in current_control.Items)
-            {
-                if (el is TextBox)
-                    (el as TextBox).IsEnabled = true;
-                if (el is ComboBox)
-                    (el as ComboBox).IsEnabled = true;
-            }
-        }*/
-
-
+      
     }
 }
 

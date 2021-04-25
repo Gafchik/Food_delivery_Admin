@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Food_delivery_Admin.ModelView.Chek_ModelView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Food_delivery_Admin.View.Check_View
         public New_Check()
         {
             InitializeComponent();
+            DataContext = new ViewModel_Check();
         }
     }
 }

@@ -19,28 +19,11 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock  FontWeight="Bold" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"  FontSize="15" Text="Администратор"></TextBlock>
-
-        <ListView Grid.Column="1" Grid.Row="0" Margin="10 7"
-                     HorizontalAlignment="Stretch" ItemsSource="{Binding Admins}"  
-                     Background="LightBlue"
-                     SelectedItem="{Binding Selected_Item_Current.admin}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock  Text="{Binding Path=Admins_Name}" FontSize="10">
-                        </TextBlock>
-                        <TextBlock  Text="{Binding Path=Admins_Surname}"
-                                    FontSize="9" ></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
 
-        
+
         <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"
                     VerticalAlignment="Center"    FontSize="15" Text="Клиент"></TextBlock>
 
@@ -72,16 +55,20 @@
                Content=" Добавить"  FontSize="10"  Margin="50 0"/>
         <Button Command="{Binding Dell_order}"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"
                Content="Удалить"  FontSize="10" Margin="50 0" />
+
+        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"    FontSize="15" Text="Общая стоемость"></TextBlock>
+
         <Button x:Name="Add" Grid.Column="1"                   
                        Margin="10 5"          
-                    Grid.Row="6">
+                    Grid.Row="7">
             <TextBlock FontSize="15" Height="26">Добавить</TextBlock>
         </Button>
 
         <Button Grid.Column="0"  Command="{Binding Cansel_new}"
                 CommandParameter="{Binding ElementName=new_admin}"              
                             Margin="10 5"   
-                    Grid.Row="6">
+                    Grid.Row="7">
             <TextBlock FontSize="15" Height="26">Отмена</TextBlock>
         </Button>
     </Grid>
