@@ -5,15 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Check_View"
         mc:Ignorable="d"
-        Title="New_Check" Height="450" Width="800">
+        Title="New_Check" Height="600" Width="500" x:Name="new_chek">
     <Grid Background="LightBlue">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="123*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="101*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -24,52 +23,59 @@
 
 
 
-        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"
-                    VerticalAlignment="Center"    FontSize="15" Text="Клиент"></TextBlock>
-
-        <ListView Grid.Column="1" Grid.Row="2" 
+        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"    FontSize="15" Text="Клиент" Margin="97,38,96,37"></TextBlock>
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox Text="{Binding Serch_Str_User_New_CH, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <ComboBox Grid.Column="1" Grid.Row="0"  
                      HorizontalAlignment="Stretch"  
-                     Background="LightBlue"
-                     SelectedItem="{Binding Selected_Item_Current.user}">
-        </ListView>
-        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center"
-                    VerticalAlignment="Center"    FontSize="15" Text="Список продуктов"></TextBlock>
+                    ItemsSource="{Binding Users}"
+                     SelectedItem="{Binding Selected_Item_User_New_CH}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock  Text="{Binding Path=User_Name}" FontSize="10"></TextBlock>
+                            <TextBlock  Text="{Binding Path=User_Surname}" FontSize="10" ></TextBlock>
+                            <TextBlock  Text="{Binding Path=User_Phone}" FontSize="10" ></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"    FontSize="15" Text="Список продуктов" Margin="56,38,55,37"></TextBlock>
 
-        <ListBox Grid.Column="1" Grid.Row="3" Margin="10 7" Grid.RowSpan="2"
-                     HorizontalAlignment="Stretch" ItemsSource="{Binding Current_Ch_orders}"  
-                     Background="LightBlue"
-                     SelectedItem="{Binding Selected_Item_Current_Order}">
+        <ListBox Grid.Column="1" Grid.Row="1" Margin="10 7" Grid.RowSpan="2"
+                     HorizontalAlignment="Stretch" ItemsSource="{Binding Coll_Product_New_CH, UpdateSourceTrigger=PropertyChanged}"  
+                    
+                     SelectedItem="{Binding Selected_Item_Product_New_CH}" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock  Text="{Binding Path=product.Product_Name}" FontSize="10">
-                        </TextBlock>
-                        <TextBlock  Text="{Binding Path=Orders_Count}"
-                                    FontSize="9" ></TextBlock>
+                        <TextBlock  Text="{Binding Path=Order_Products_Name}" FontSize="10"></TextBlock>
+                        <TextBlock  Text="{Binding Path=Order_Price}" FontSize="9"></TextBlock>
+                        <TextBlock  Text="{Binding Path=Order_Discount}" FontSize="9"></TextBlock>
+                        <TextBlock  Text="{Binding Path=Order_Final_Price}" FontSize="9"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Command="{Binding Add_order}"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"
-               Content=" Добавить"  FontSize="10"  Margin="50 0"/>
-        <Button Command="{Binding Dell_order}"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Content="Удалить"  FontSize="10" Margin="50 0" />
+        <Button Command="{Binding Add_order}"  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+               Content=" Добавить"  FontSize="10"  Margin="6,39,0,39"/>
+        <Button Command="{Binding Dell_order}"  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="Удалить"  FontSize="10" Margin="0,39,50,39" />
 
-        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"
-                    VerticalAlignment="Center"    FontSize="15" Text="Общая стоемость"></TextBlock>
+        <TextBlock  FontWeight="Bold" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center"
+                    VerticalAlignment="Center"    FontSize="15" Text="Общая стоемость" Margin="58,38,58,37"></TextBlock>
 
-        <Button x:Name="Add" Grid.Column="1"                   
+        <TextBox IsEnabled="False" FontWeight="Bold" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"    FontSize="15" Text="{Binding New_CH_Final_Price, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Button x:Name="Add" Grid.Column="1" Command="{Binding Add_Check}"  CommandParameter="{Binding ElementName=new_chek}"                
                        Margin="10 5"          
-                    Grid.Row="7">
+                    Grid.Row="5" Grid.ColumnSpan="2">
             <TextBlock FontSize="15" Height="26">Добавить</TextBlock>
-        </Button>
-
-        <Button Grid.Column="0"  Command="{Binding Cansel_new}"
-                CommandParameter="{Binding ElementName=new_admin}"              
-                            Margin="10 5"   
-                    Grid.Row="7">
-            <TextBlock FontSize="15" Height="26">Отмена</TextBlock>
         </Button>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using Food_delivery_Admin.ModelView.Chek_ModelView;
+using Food_delivery_library.About_orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Food_delivery_Admin.View.Check_View
+namespace Food_delivery_Admin.View.Check_View.Ceck_Edit
 {
     /// <summary>
-    /// Логика взаимодействия для New_Order.xaml
+    /// Логика взаимодействия для Edit_Order_in_Chek.xaml
     /// </summary>
-    public partial class New_Order : Window
+    public partial class Edit_Order_in_Chek : Window
     {
-        public New_Order()
+     public  static int check_id;
+        public Edit_Order_in_Chek(Current_Cheсk current_Check)
         {
             InitializeComponent();
             DataContext = new ViewModel_Check();
+            check_id = current_Check.Check_Id;
         }
     }
 }

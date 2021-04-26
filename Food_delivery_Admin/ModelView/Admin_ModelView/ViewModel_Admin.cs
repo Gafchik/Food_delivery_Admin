@@ -43,7 +43,7 @@ namespace Food_delivery_Admin.ModelView
         #region Admin
 
         #region full prop bind
-        private static Admin curent_Admin; // админ который вошел
+        public static Admin curent_Admin; // админ который вошел
 
         public Admin Curent_Admin 
         {

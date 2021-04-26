@@ -100,6 +100,9 @@
     <Compile Include="View\Categories_View\New_Categories.xaml.cs">
       <DependentUpon>New_Categories.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Check_View\Ceck_Edit\Edit_Order_in_Chek.xaml.cs">
+      <DependentUpon>Edit_Order_in_Chek.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Check_View\Main_Check.xaml.cs">
       <DependentUpon>Main_Check.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Categories_View\New_Categories.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Check_View\Ceck_Edit\Edit_Order_in_Chek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

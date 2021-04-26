@@ -4,21 +4,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 
 namespace Food_delivery_library.About_orders
 {
-   public class Current_Ch_Orders
+    public class Current_Order
     {
-        public int Id { get; set; }
-        public int Chek_Id { get; set; }
         public int Order_Id { get; set; }
+        public string Order_Products_Name { get; set; }
+        public float Order_Price { get; set; }
+        public float Order_Discount { get; set; }
+        public float Order_Final_Price { get; set; }
+        public int Order_Chek_Id { get; set; }
     }
 
-  public  class Current_Ch_Orders_Repository : IRepository<Current_Ch_Orders>
+
+    public class Current_Orders_Repository : IRepository<Current_Order>
     {
         string connectionString = Resource.ConSTR;
-        public void Create(Current_Ch_Orders value)
+        public void Create(Current_Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -27,14 +30,16 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "INSERT INTO  Current_Ch_Order (Chek_Id ,Order_Id)" +
-                                 " VALUES(@Chek_Id, @Order_Id)";
+                        var sqlQuery = "INSERT INTO  Current_Orders (Order_Products_Name ,Order_Price, Order_Discount, Order_Final_Price, Order_Chek_Id)" +
+                                 " VALUES(@Order_Products_Name, @Order_Price, @Order_Discount, @Order_Final_Price, @Order_Chek_Id)";
                         db.Execute(sqlQuery,
                            new
                            {
-                               Chek_Id = value.Chek_Id,
-                               Order_Id = value.Order_Id,
-                             
+                               Order_Products_Name = value.Order_Products_Name,
+                               Order_Price = value.Order_Price,
+                               Order_Discount = value.Order_Discount,
+                               Order_Final_Price = value.Order_Final_Price,
+                               Order_Chek_Id = value.Order_Chek_Id
                            },
                            transaction);
                         transaction.Commit();
@@ -49,7 +54,7 @@ namespace Food_delivery_library.About_orders
             }
         }
 
-        public void Delete(Current_Ch_Orders value)
+        public void Delete(Current_Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -58,8 +63,8 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "DELETE FROM  Current_Ch_Order WHERE Id = @Id";
-                        db.Execute(sqlQuery, new { value.Id }, transaction);
+                        var sqlQuery = "DELETE FROM  Current_Orders WHERE Order_Id = @Order_Id";
+                        db.Execute(sqlQuery, new { value.Order_Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -71,23 +76,23 @@ namespace Food_delivery_library.About_orders
             }
         }
 
-        public Current_Ch_Orders Get(int Id)
+        public Current_Order Get(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Current_Ch_Orders> GetColl()
+        public IEnumerable<Current_Order> GetColl()
         {
-            List<Current_Ch_Orders> coll = new List<Current_Ch_Orders>();
+            List<Current_Order> coll = new List<Current_Order>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                coll = db.Query<Current_Ch_Orders>("SELECT * FROM Current_Ch_Order").ToList();
+                coll = db.Query<Current_Order>("SELECT * FROM Current_Orders").ToList();
             }
 
             return coll;
         }
 
-        public void Update(Current_Ch_Orders value)
+        public void Update(Current_Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -96,14 +101,18 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "UPDATE  Current_Ch_Order SET Chek_Id = @Chek_Id ,Order_Id =  @Order_Id," +                       
-                            " WHERE Id = @Id";
+                        var sqlQuery = "UPDATE  Current_Orders SET Order_Products_Name = @Order_Products_Name ,Order_Price =  @Order_Price," +
+                            " Order_Discount =  @Order_Discount, Order_Final_Price = @Order_Final_Price, Order_Chek_Id = @Order_Chek_Id" +
+                            " WHERE Product_Id = @Product_Id";
                         db.Execute(sqlQuery,
                            new
                            {
-                               Chek_Id = value.Chek_Id,
-                               Order_Id = value.Order_Id,
-                               Id = value.Id
+                               Order_Products_Name = value.Order_Products_Name,
+                               Order_Chek_Id = value.Order_Chek_Id,
+                               Order_Price = value.Order_Price,
+                               Order_Discount = value.Order_Discount,
+                               Order_Final_Price = value.Order_Final_Price,
+                               Order_Id = value.Order_Id
                            },
                            transaction);
                         transaction.Commit();
