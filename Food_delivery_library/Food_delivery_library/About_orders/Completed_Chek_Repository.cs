@@ -12,6 +12,7 @@ namespace Food_delivery_library.About_orders
 
     public class Completed_Cheсk
     {
+        public int Id { get; set; }
         public int Check_Id { get; set; }
         public string Check_Admin { get; set; }
         public string Check_User_Phone { get; set; }
@@ -30,11 +31,12 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "INSERT INTO  Completed_Check (Check_Admin ,Check_User_Phone, Check_Date, Check_Final_Price)" +
-                                 " VALUES(@Check_Admin, @Check_User_Phone, @Check_Date, @Check_Final_Price)";
+                        var sqlQuery = "INSERT INTO  Completed_Check (Check_Id, Check_Admin ,Check_User_Phone, Check_Date, Check_Final_Price)" +
+                                 " VALUES(@Check_Id, @Check_Admin, @Check_User_Phone, @Check_Date, @Check_Final_Price)";
                         db.Execute(sqlQuery,
                            new
                            {
+                               Check_Id = value.Check_Id,
                                Check_Admin = value.Check_Admin,
                                Check_User_Phone = value.Check_User_Phone,
                                Check_Date = value.Check_Date,
@@ -63,8 +65,8 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "DELETE FROM Completed_Check WHERE Check_Id = @Check_Id";
-                        db.Execute(sqlQuery, new { Check_Id= value.Check_Id }, transaction);
+                        var sqlQuery = "DELETE FROM Completed_Check WHERE Id = @Id";
+                        db.Execute(sqlQuery, new { Check_Id= value.Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -102,11 +104,12 @@ namespace Food_delivery_library.About_orders
                     try
                     {
                         var sqlQuery = "UPDATE  Completed_Check SET Check_Admin = @Check_Admin ,Check_User_Phone =  @Check_User_Phone," +
-                            " Check_Date =  @Check_Date, Check_Final_Price = @Check_Final_Price" +
-                            " WHERE Check_Id = @Check_Id";
+                            " Check_Date =  @Check_Date, Check_Final_Price = @Check_Final_Price, Check_Id = @Check_Id" +
+                            " WHERE Id = @Id ";
                         db.Execute(sqlQuery,
                            new
                            {
+                               Id  = value.Id,
                                Check_Id = value.Check_Id,
                                Check_Admin = value.Check_Admin,
                                Check_User_Phone = value.Check_User_Phone,

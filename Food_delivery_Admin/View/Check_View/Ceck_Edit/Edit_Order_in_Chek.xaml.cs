@@ -21,12 +21,12 @@ namespace Food_delivery_Admin.View.Check_View.Ceck_Edit
     /// </summary>
     public partial class Edit_Order_in_Chek : Window
     {
-     public  static int check_id;
+     public  static int id;
         public Edit_Order_in_Chek(Current_Cheсk current_Check)
         {
             InitializeComponent();
             DataContext = new ViewModel_Check();
-            check_id = current_Check.Check_Id;
+            id = current_Check.Id;
         }
     }
 }

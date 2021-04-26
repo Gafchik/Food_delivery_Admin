@@ -12,13 +12,14 @@ namespace Food_delivery_library.About_orders
 
     public class Current_Cheсk
     {
+        public int Id { get; set; }
         public int Check_Id { get; set; }
         public string Check_Admin { get; set; }
         public string Check_User_Phone { get; set; }
-        public DateTime Check_Data { get; set; }
+        public DateTime Check_Date { get; set; }
         public float Check_Final_Price { get; set; }
     }
-  public  class Current_Chek_Repository : IRepository<Current_Cheсk>
+    public class Current_Chek_Repository : IRepository<Current_Cheсk>
     {
         string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
         public void Create(Current_Cheсk value)
@@ -30,14 +31,15 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "INSERT INTO  Current_Cheсk (Check_Admin ,Check_User_Phone, Check_Data, Check_Final_Price)" +
-                                 " VALUES(@Check_Admin, @Check_User_Phone, @Check_Data, @Check_Final_Price)";
+                        var sqlQuery = "INSERT INTO  Current_Check (Check_Id, Check_Admin ,Check_User_Phone, Check_Date, Check_Final_Price)" +
+                                 " VALUES(@Check_Id, @Check_Admin, @Check_User_Phone, @Check_Date, @Check_Final_Price)";
                         db.Execute(sqlQuery,
                            new
                            {
+                               Check_Id = value.Check_Id,
                                Check_Admin = value.Check_Admin,
                                Check_User_Phone = value.Check_User_Phone,
-                               Check_Data = value.Check_Data,
+                               Check_Date = value.Check_Date,
                                Check_Final_Price = value.Check_Final_Price
 
                            },
@@ -63,8 +65,8 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "DELETE FROM  Current_Cheсk WHERE Check_Id = @Check_Id";
-                        db.Execute(sqlQuery, new { value.Check_Id }, transaction);
+                        var sqlQuery = "DELETE FROM Current_Check WHERE Id = @Id";
+                        db.Execute(sqlQuery, new { Check_Id = value.Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -86,7 +88,7 @@ namespace Food_delivery_library.About_orders
             List<Current_Cheсk> coll = new List<Current_Cheсk>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                coll = db.Query<Current_Cheсk>("SELECT * FROM Current_Cheсk").ToList();
+                coll = db.Query<Current_Cheсk>("SELECT * FROM Current_Check").ToList();
             }
 
             return coll;
@@ -101,17 +103,18 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "UPDATE  Current_Cheсk SET Check_Admin = @Check_Admin ,Check_User_Phone =  @Check_User_Phone," +
-                            " Check_Data =  @Check_Data, Check_Final_Price = @Check_Final_Price" +
-                            " WHERE Check_Id = @Check_Id";
+                        var sqlQuery = "UPDATE  Current_Check SET Check_Admin = @Check_Admin ,Check_User_Phone =  @Check_User_Phone," +
+                            " Check_Date =  @Check_Date, Check_Final_Price = @Check_Final_Price, Check_Id = @Check_Id" +
+                            " WHERE Id = @Id ";
                         db.Execute(sqlQuery,
                            new
                            {
+                               Id = value.Id,
                                Check_Id = value.Check_Id,
                                Check_Admin = value.Check_Admin,
                                Check_User_Phone = value.Check_User_Phone,
                                Check_Final_Price = value.Check_Final_Price,
-                               Check_Data = value.Check_Data
+                               Check_Date = value.Check_Date
                            },
                            transaction);
                         transaction.Commit();

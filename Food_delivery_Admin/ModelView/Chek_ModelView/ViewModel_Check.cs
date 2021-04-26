@@ -17,7 +17,7 @@ using System.Windows.Controls;
 
 namespace Food_delivery_Admin.ModelView.Chek_ModelView
 {
-   public class ViewModel_Check : INotifyPropertyChanged // c+urrent+ +compl+ +admin+ +user+ +produc+t
+   public class ViewModel_Check : INotifyPropertyChanged // 
     {
 
         #region init
@@ -267,7 +267,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     {
                         current_order_repository.Create(new Order
                         {
-                            Order_Chek_Id = Edit_Order_in_Chek.check_id,
+                            Order_Chek_Id = Edit_Order_in_Chek.id,
                             Order_Discount = (float)Selected_Item_Product_New_Or.Product_Discount,
                             Order_Final_Price = (float)Selected_Item_Product_New_Or.Product_Price,
                             Order_Price = (float)Selected_Item_Product_New_Or.Product_Price,
@@ -323,8 +323,9 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     {
                         current_CH_repository.Create(new Current_Cheсk
                         {
+                            
                             Check_Admin = ViewModel_Admin.curent_Admin.Admins_Surname,
-                            Check_Data = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                            Check_Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                                             DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second),
                             Check_Final_Price = New_CH_Final_Price,
                             Check_User_Phone = Selected_Item_User_New_CH.User_Phone
@@ -539,13 +540,14 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                         return;
                     completed_CH_repository.Create(new Completed_Cheсk
                     {
+                        Check_Id = Selected_Item_Current_Cheсk.Check_Id,
                         Check_Admin = Selected_Item_Current_Cheсk.Check_Admin,
-                        Check_Date = new DateTime(Selected_Item_Current_Cheсk.Check_Data.Year,
-                        Selected_Item_Current_Cheсk.Check_Data.Month,
-                                            Selected_Item_Current_Cheсk.Check_Data.Day,
-                                            Selected_Item_Current_Cheсk.Check_Data.Hour,
-                                            Selected_Item_Current_Cheсk.Check_Data.Minute,
-                                            Selected_Item_Current_Cheсk.Check_Data.Second),
+                        Check_Date = new DateTime(Selected_Item_Current_Cheсk.Check_Date.Year,
+                        Selected_Item_Current_Cheсk.Check_Date.Month,
+                                            Selected_Item_Current_Cheсk.Check_Date.Day,
+                                            Selected_Item_Current_Cheсk.Check_Date.Hour,
+                                            Selected_Item_Current_Cheсk.Check_Date.Minute,
+                                            Selected_Item_Current_Cheсk.Check_Date.Second),
                         Check_Final_Price = Selected_Item_Current_Cheсk.Check_Final_Price,
                         Check_User_Phone = Selected_Item_Current_Cheсk.Check_User_Phone                        
                     });
@@ -560,7 +562,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                             Order_Products_Name = i.Order_Products_Name,
                             Order_Chek_Id = completed_CH_repository.GetColl().ToList()
                             .Find(j => j.Check_User_Phone == Selected_Item_Current_Cheсk.Check_User_Phone &&
-                            j.Check_Final_Price == Selected_Item_Current_Cheсk.Check_Final_Price).Check_Id
+                            j.Check_Id == Selected_Item_Current_Cheсk.Check_Id).Check_Id
                         });
                     });
                 
@@ -587,8 +589,9 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                         return;
                     current_CH_repository.Create(new Current_Cheсk
                     {
+                        Check_Id = Selected_Item_Completed_CH.Check_Id,
                         Check_Admin = Selected_Item_Completed_CH.Check_Admin,
-                        Check_Data = new DateTime(Selected_Item_Completed_CH.Check_Date.Year,
+                        Check_Date = new DateTime(Selected_Item_Completed_CH.Check_Date.Year,
                         Selected_Item_Completed_CH.Check_Date.Month,
                                             Selected_Item_Completed_CH.Check_Date.Day,
                                             Selected_Item_Completed_CH.Check_Date.Hour,
@@ -610,7 +613,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                             Order_Products_Name = i.Order_Products_Name,
                             Order_Chek_Id = current_CH_repository.GetColl().ToList()
                             .Find(j => j.Check_User_Phone == Selected_Item_Completed_CH.Check_User_Phone &&
-                            j.Check_Final_Price == Selected_Item_Completed_CH.Check_Final_Price).Check_Id
+                            j.Check_Id == Selected_Item_Completed_CH.Check_Id).Check_Id
                         });
                     });
 
