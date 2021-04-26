@@ -24,8 +24,8 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
       
         static ViewModel_Check()
         {               
-            selected_item_product_new_CH = new Current_Order();
-            Coll_Product_New_CH = new ObservableCollection<Current_Order>();
+            selected_item_product_new_CH = new Order();
+            Coll_Product_New_CH = new ObservableCollection<Order>();
         }
         public ObservableCollection<Admin> Admins { get; set; }
         private Admins_Repository admin_repository = new Admins_Repository();
@@ -39,7 +39,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         public ObservableCollection<User> Users { get; set; }
         private User_Repository user_repository = new User_Repository();
 
-        public ObservableCollection<Current_Order> Current_Orders { get; set; }
+        public ObservableCollection<Order> Current_Orders { get; set; }
         private Current_Orders_Repository current_order_repository = new Current_Orders_Repository();
 
         public ObservableCollection<Current_Cheсk> Current_Cheсks { get; set; }
@@ -48,6 +48,9 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         public ObservableCollection<Completed_Cheсk> Completed_Cheсks { get; set; }
         private Completed_Chek_Repository completed_CH_repository = new Completed_Chek_Repository();
 
+        public ObservableCollection<Order> Completed_Orders { get; set; }
+        private  Completed_Orders_Repository completed_order_repository = new Completed_Orders_Repository();
+        
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged; // ивент обновления
@@ -71,8 +74,13 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
             
             if (Current_Orders != null)
                 Current_Orders.Clear();
-            Current_Orders = new ObservableCollection<Current_Order>(current_order_repository.GetColl());
+            Current_Orders = new ObservableCollection<Order>(current_order_repository.GetColl());
             OnPropertyChanged("Current_Orders");
+
+            if (Completed_Orders != null)
+                Completed_Orders.Clear();
+            Completed_Orders = new ObservableCollection<Order>(completed_order_repository.GetColl());
+            OnPropertyChanged("Completed_Orders");
 
 
             if (Users != null)
@@ -161,7 +169,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
             {
                 return add_product ?? (add_product = new RelayCommand(act =>
                 {
-                    Coll_Product_New_CH.Add(new Current_Order
+                    Coll_Product_New_CH.Add(new Order
                     {
                         Order_Products_Name = Selected_Item_Product_New_Or.Product_Name,
                         Order_Price = (float)Selected_Item_Product_New_Or.Product_Price,
@@ -229,7 +237,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     else
                     {
                         new Edit_Order_in_Chek(Selected_Item_Current_Cheсk).ShowDialog();
-                        Coll_Product_Current_CH = new ObservableCollection<Current_Order>(current_order_repository.GetColl()
+                        Coll_Product_Current_CH = new ObservableCollection<Order>(current_order_repository.GetColl()
                    .ToList().FindAll(i => i.Order_Chek_Id == Selected_Item_Current_Cheсk.Check_Id));
                         OnPropertyChanged("Coll_Product_Current_CH");
                         Selected_Item_Current_Cheсk.Check_Final_Price = 0;
@@ -257,7 +265,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                         return;
                     else
                     {
-                        current_order_repository.Create(new Current_Order
+                        current_order_repository.Create(new Order
                         {
                             Order_Chek_Id = Edit_Order_in_Chek.check_id,
                             Order_Discount = (float)Selected_Item_Product_New_Or.Product_Discount,
@@ -289,7 +297,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     else
                     {
                         current_order_repository.Delete(Selected_Item_Product_Current_CH);
-                        Coll_Product_Current_CH = new ObservableCollection<Current_Order>(current_order_repository.GetColl()
+                        Coll_Product_Current_CH = new ObservableCollection<Order>(current_order_repository.GetColl()
                   .ToList().FindAll(i => i.Order_Chek_Id == Selected_Item_Current_Cheсk.Check_Id));
                         OnPropertyChanged("Coll_Product_Current_CH");
                         Selected_Item_Current_Cheсk.Check_Final_Price = 0;
@@ -330,7 +338,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
                     Coll_Product_New_CH.ToList().ForEach(i =>
                     {
-                        current_order_repository.Create(new Current_Order
+                        current_order_repository.Create(new Order
                         {
                             Order_Discount = i.Order_Discount,
                             Order_Final_Price = i.Order_Final_Price,
@@ -382,11 +390,11 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
 
 
-        public static ObservableCollection<Current_Order> Coll_Product_New_CH { get; set; } // колекция для списка продуктов новго чека
+        public static ObservableCollection<Order> Coll_Product_New_CH { get; set; } // колекция для списка продуктов новго чека
 
-        private static Current_Order selected_item_product_new_CH; // выбраный елемент для коллекции выше
+        private static Order selected_item_product_new_CH; // выбраный елемент для коллекции выше
 
-        public Current_Order Selected_Item_Product_New_CH
+        public Order Selected_Item_Product_New_CH
         {
             get { return selected_item_product_new_CH; }
             set { selected_item_product_new_CH = value; OnPropertyChanged("Selected_Item_Product_New_CH"); }
@@ -395,11 +403,11 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         #endregion
 
         #region current check
-        public ObservableCollection<Current_Order> Coll_Product_Current_CH { get; set; } // колекция для списка продуктов текущего чека
+        public ObservableCollection<Order> Coll_Product_Current_CH { get; set; } // колекция для списка продуктов текущего чека
      
-        private Current_Order selected_item_product_current_CH; // выбраный елемент для коллекции выше
+        private Order selected_item_product_current_CH; // выбраный елемент для коллекции выше
 
-        public Current_Order Selected_Item_Product_Current_CH
+        public Order Selected_Item_Product_Current_CH
         {
             get { return selected_item_product_current_CH; }
             set { selected_item_product_current_CH = value; }
@@ -416,7 +424,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     GC.Collect(GC.GetGeneration(Coll_Product_Current_CH));
                 try
                 {
-                    Coll_Product_Current_CH = new ObservableCollection<Current_Order>(current_order_repository.GetColl()
+                    Coll_Product_Current_CH = new ObservableCollection<Order>(current_order_repository.GetColl()
                    .ToList().FindAll(i => i.Order_Chek_Id == selected_item_Current_Cheсk.Check_Id));
                     OnPropertyChanged("Coll_Product_Current_CH");
 
@@ -470,7 +478,153 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
         #endregion
 
+        #region completed check
+        public ObservableCollection<Order> Coll_Product_Completed_CH { get; set; } // колекция для списка продуктов
 
+        private Completed_Cheсk selected_item_completed_CH; // выбраный элемент для выполненых чеков
+
+        public Completed_Cheсk Selected_Item_Completed_CH 
+        {
+            get { return selected_item_completed_CH; }
+            set {
+                selected_item_completed_CH = value;  OnPropertyChanged("Selected_Item_Completed_CH");
+                if (Coll_Product_Completed_CH != null)
+                    GC.Collect(GC.GetGeneration(Coll_Product_Completed_CH));
+                try
+                {
+                    Coll_Product_Completed_CH = new ObservableCollection<Order>(completed_order_repository.GetColl()
+                   .ToList().FindAll(i => i.Order_Chek_Id == selected_item_completed_CH.Check_Id));
+                    OnPropertyChanged("Coll_Product_Completed_CH");
+
+                    selected_item_completed_CH.Check_Final_Price = 0;
+                    Coll_Product_Completed_CH.ToList()
+                    .ForEach(i => selected_item_completed_CH.Check_Final_Price += i.Order_Final_Price);
+                    OnPropertyChanged("Coll_Product_Completed_CH");
+                }
+                catch (Exception)
+                {
+
+                    Coll_Product_Completed_CH = null;
+                }
+            }
+        }
+        
+        private Order selected_item_product_completed_CH; // выбраный элемент для продуктов в выполненых чеках
+
+        public Order Selected_Item_Product_Completed_CH
+        {
+            get { return selected_item_product_completed_CH; }
+            set { selected_item_product_completed_CH = value; OnPropertyChanged("Selected_Item_Product_Completed_CH");
+                
+            }
+        }
+
+
+
+
+        #endregion
+
+        #region go to completed
+        
+
+        private RelayCommand ready; // добавить новый чек
+
+        public RelayCommand Ready
+        {
+            get
+            {
+                return ready ?? (ready = new RelayCommand(act =>
+                {
+                    if (Selected_Item_Current_Cheсk == null)
+                        return;
+                    completed_CH_repository.Create(new Completed_Cheсk
+                    {
+                        Check_Admin = Selected_Item_Current_Cheсk.Check_Admin,
+                        Check_Date = new DateTime(Selected_Item_Current_Cheсk.Check_Data.Year,
+                        Selected_Item_Current_Cheсk.Check_Data.Month,
+                                            Selected_Item_Current_Cheсk.Check_Data.Day,
+                                            Selected_Item_Current_Cheсk.Check_Data.Hour,
+                                            Selected_Item_Current_Cheсk.Check_Data.Minute,
+                                            Selected_Item_Current_Cheсk.Check_Data.Second),
+                        Check_Final_Price = Selected_Item_Current_Cheсk.Check_Final_Price,
+                        Check_User_Phone = Selected_Item_Current_Cheсk.Check_User_Phone                        
+                    });
+
+                    Coll_Product_Current_CH.ToList().ForEach(i =>
+                    {
+                        completed_order_repository.Create(new Order
+                        {
+                            Order_Discount = i.Order_Discount,
+                            Order_Final_Price = i.Order_Final_Price,
+                            Order_Price = i.Order_Price,
+                            Order_Products_Name = i.Order_Products_Name,
+                            Order_Chek_Id = completed_CH_repository.GetColl().ToList()
+                            .Find(j => j.Check_User_Phone == Selected_Item_Current_Cheсk.Check_User_Phone &&
+                            j.Check_Final_Price == Selected_Item_Current_Cheсk.Check_Final_Price).Check_Id
+                        });
+                    });
+                
+                    Coll_Product_Current_CH.ToList().ForEach(i => current_order_repository.Delete(i)) ;
+                    current_CH_repository.Delete(Selected_Item_Current_Cheсk);
+                    InitializeComponent();
+                }));
+            }
+        }
+
+        #endregion
+
+        #region go to current
+        // NotReady
+        private RelayCommand notready; // вернуть в текущие
+
+        public RelayCommand NotReady
+        {
+            get
+            {
+                return notready ?? (notready = new RelayCommand(act =>
+                {
+                    if (Selected_Item_Completed_CH == null)
+                        return;
+                    current_CH_repository.Create(new Current_Cheсk
+                    {
+                        Check_Admin = Selected_Item_Completed_CH.Check_Admin,
+                        Check_Data = new DateTime(Selected_Item_Completed_CH.Check_Date.Year,
+                        Selected_Item_Completed_CH.Check_Date.Month,
+                                            Selected_Item_Completed_CH.Check_Date.Day,
+                                            Selected_Item_Completed_CH.Check_Date.Hour,
+                                            Selected_Item_Completed_CH.Check_Date.Minute,
+                                            Selected_Item_Completed_CH.Check_Date.Second),
+                      
+                        Check_Final_Price = Selected_Item_Completed_CH.Check_Final_Price,
+                        Check_User_Phone = Selected_Item_Completed_CH.Check_User_Phone
+                    });
+
+
+                    Coll_Product_Completed_CH.ToList().ForEach(i =>
+                    {
+                        current_order_repository.Create(new Order
+                        {
+                            Order_Discount = i.Order_Discount,
+                            Order_Final_Price = i.Order_Final_Price,
+                            Order_Price = i.Order_Price,
+                            Order_Products_Name = i.Order_Products_Name,
+                            Order_Chek_Id = current_CH_repository.GetColl().ToList()
+                            .Find(j => j.Check_User_Phone == Selected_Item_Completed_CH.Check_User_Phone &&
+                            j.Check_Final_Price == Selected_Item_Completed_CH.Check_Final_Price).Check_Id
+                        });
+                    });
+
+
+
+                    Coll_Product_Completed_CH.ToList().ForEach(i => completed_order_repository.Delete(i));
+                    OnPropertyChanged("Coll_Product_Completed_CH");
+                    completed_CH_repository.Delete(Selected_Item_Completed_CH);
+                    InitializeComponent();
+
+                }));
+            }
+        }
+        #endregion
 
         #region go to main
 

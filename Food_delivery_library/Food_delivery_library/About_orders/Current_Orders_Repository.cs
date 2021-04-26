@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Food_delivery_library.About_orders
 {
-    public class Current_Order
+    public class Order
     {
         public int Order_Id { get; set; }
         public string Order_Products_Name { get; set; }
@@ -19,10 +19,10 @@ namespace Food_delivery_library.About_orders
     }
 
 
-    public class Current_Orders_Repository : IRepository<Current_Order>
+    public class Current_Orders_Repository : IRepository<Order>
     {
         string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
-        public void Create(Current_Order value)
+        public void Create(Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -55,7 +55,7 @@ namespace Food_delivery_library.About_orders
             }
         }
 
-        public void Delete(Current_Order value)
+        public void Delete(Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -77,23 +77,23 @@ namespace Food_delivery_library.About_orders
             }
         }
 
-        public Current_Order Get(int Id)
+        public Order Get(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Current_Order> GetColl()
+        public IEnumerable<Order> GetColl()
         {
-            List<Current_Order> coll = new List<Current_Order>();
+            List<Order> coll = new List<Order>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                coll = db.Query<Current_Order>("SELECT * FROM Current_Orders").ToList();
+                coll = db.Query<Order>("SELECT * FROM Current_Orders").ToList();
             }
 
             return coll;
         }
 
-        public void Update(Current_Order value)
+        public void Update(Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {

@@ -22,7 +22,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.RowSpan="5" >
+        <StackPanel Grid.Column="0" Grid.RowSpan="5" >
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Check_Main}"
@@ -38,7 +38,7 @@
                     Content="Удалить заказ" HorizontalAlignment="Left" Margin="10 0 20 0" />
                 <Button Command="{Binding New_item}"                  
                     Content="Добавить заказ" HorizontalAlignment="Left" Margin="10 0 20 0" />
-                </StackPanel>
+            </StackPanel>
                 <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Current_Cheсks, UpdateSourceTrigger=PropertyChanged}"  Background="LightBlue"
                      SelectedItem="{Binding Selected_Item_Current_Cheсk}">
                 <ListBox.ItemTemplate>
@@ -52,6 +52,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
+       
         <StackPanel x:Name="stack" HorizontalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="5" >
             <TextBlock HorizontalAlignment="Center" FontWeight="Bold"  Background="Blue"  Text="Выбраный Заказ" FontSize="15"></TextBlock>
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Администратор" FontSize="15"></TextBlock>
@@ -89,46 +90,53 @@
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Общая стоимость"></TextBlock>
             <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Current_Cheсk.Check_Final_Price, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
-        <!--блокированые пользователи-->
-        <StackPanel Grid.Column="3" Grid.RowSpan="5" >
+
+<!--выполненые-->
+
+
+        <StackPanel Grid.RowSpan="5" Grid.Column="3" >
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="0 0 5 0">по номеру телефона :
-                </TextBlock>
-                <TextBox 
-                         Text="{Binding Serch_str_Block, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="150" HorizontalAlignment="Right" 
+
+                <TextBlock Margin="0 0 5 0"> по номеру телефона :</TextBlock>
+                <TextBox
+                         Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="80" HorizontalAlignment="Right" Margin="0 0 0 0"
                          FontSize="15" />
             </StackPanel>
-            <ListBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Blocked_Users}"  Background="LightBlue"
-                     SelectedItem="{Binding Selected_Item_Block}">
+
+            <ListBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Completed_Cheсks, UpdateSourceTrigger=PropertyChanged}"  Background="LightBlue"
+                     SelectedItem="{Binding Selected_Item_Completed_CH}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock  Text="{Binding Path= Blocked_user_Surname}" FontSize="15"></TextBlock>
-                            <TextBlock  Text="{Binding Path= Blocked_user_Name}" FontSize="13" ></TextBlock>
+                            <TextBlock  Text="{Binding Path=Check_Id}" FontSize="15"></TextBlock>
+                            <TextBlock  Text="{Binding Path=Check_User_Phone}" FontSize="13" ></TextBlock>
+                            <TextBlock  Text="{Binding Path=Check_Data}" FontSize="13" ></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <StackPanel  HorizontalAlignment="Stretch" Grid.Column="5" Grid.RowSpan="5" >
-            <TextBlock HorizontalAlignment="Center" FontWeight="Bold"  Background="Blue"  Text="Выбраный Заказ" FontSize="15"></TextBlock>
+        <StackPanel HorizontalAlignment="Stretch" Grid.Column="4" Grid.RowSpan="5" >
+            <TextBlock HorizontalAlignment="Center" FontWeight="Bold"  Background="Blue"  Text="Выполненые Заказы" FontSize="15"></TextBlock>
             <TextBlock  FontWeight="Bold" Background="LightBlue"  Text="Администратор" FontSize="15"></TextBlock>
-            <TextBox  IsEnabled="False"  Text="{Binding Selected_Item.User_Surname, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBox  IsEnabled="False"  Text="{Binding Selected_Item_Completed_CH.Check_Admin, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             <TextBlock  FontWeight="Bold"  Background="LightBlue" FontSize="15" Text="Номер клиента"></TextBlock>
-            <TextBox IsEnabled="False" Text="{Binding  Selected_Item.User_Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Completed_CH.Check_User_Phone, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Дата закза"></TextBlock>
-            <TextBox IsEnabled="False" Text="{Binding  Selected_Item.User_Phone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Completed_CH.Check_Date, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="В заказ входит"></TextBlock>
 
 
-            <ListBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Products}"  Background="LightBlue"
-                     SelectedItem="{Binding Selected_Item}">
+            <ListBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Coll_Product_Completed_CH, UpdateSourceTrigger=PropertyChanged}"  Background="LightBlue"
+                     SelectedItem="{Binding Selected_Item_Product_Completed_CH}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock  Text="{Binding Path=User_Surname}" FontSize="15"></TextBlock>
-                            <TextBlock  Text="{Binding Path=User_Name}" FontSize="13" ></TextBlock>
+                            <TextBlock  Text="{Binding Path=Order_Products_Name}" FontSize="10"></TextBlock>
+                            <TextBlock  Text="{Binding Path=Order_Price}" FontSize="9"></TextBlock>
+                            <TextBlock  Text="{Binding Path=Order_Discount}" FontSize="9"></TextBlock>
+                            <TextBlock  Text="{Binding Path=Order_Final_Price}" FontSize="9"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -136,36 +144,19 @@
 
             <StackPanel Orientation="Horizontal"/>
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Общая стоимость"></TextBlock>
-            <TextBox IsEnabled="False" Text="{Binding  Selected_Item.User_Phone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Completed_CH.Check_Final_Price, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
-        <!--блокированые пользователи-->
-        <StackPanel Grid.Column="3" Grid.RowSpan="5" >
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="0 0 5 0">по номеру телефона :
-                </TextBlock>
-                <TextBox 
-                         Text="{Binding Serch_str_Block, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="150" HorizontalAlignment="Right" 
-                         FontSize="15" />
-            </StackPanel>
-            <ListBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Blocked_Users}"  Background="LightBlue"
-                     SelectedItem="{Binding Selected_Item_Block}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock  Text="{Binding Path= Blocked_user_Surname}" FontSize="15"></TextBlock>
-                            <TextBlock  Text="{Binding Path= Blocked_user_Name}" FontSize="13" ></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <Button Command="{Binding Block}" Grid.Column="2" Grid.Row="0" Margin="10"
+
+
+
+
+        <Button Command="{Binding Ready}" Grid.Column="2" Grid.Row="0" Margin="10"
                    VerticalAlignment="Bottom" Background="GreenYellow"
                     Content="В выполненые -->" HorizontalAlignment="Center"  />
-        <Button Command="{Binding UnBlock}" Grid.Column="2" Grid.Row="1" Margin="10"
+        <Button Command="{Binding NotReady}" Grid.Column="2" Grid.Row="1" Margin="10"
                    VerticalAlignment="Bottom" Background="Red"
                      HorizontalAlignment="Center"  Content="&lt;-- В текущие" />
+
     </Grid>
 
 </Window>

@@ -9,19 +9,10 @@ using System.Text;
 
 namespace Food_delivery_library.About_orders
 {
-
-    public class Completed_Cheсk
-    {
-        public int Check_Id { get; set; }
-        public string Check_Admin { get; set; }
-        public string Check_User_Phone { get; set; }
-        public DateTime Check_Date { get; set; }
-        public float Check_Final_Price { get; set; }
-    }
-  public  class Completed_Chek_Repository : IRepository<Completed_Cheсk>
+  public  class Completed_Orders_Repository : IRepository<Order>
     {
         string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
-        public void Create(Completed_Cheсk value)
+        public void Create(Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -30,16 +21,16 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "INSERT INTO  Completed_Check (Check_Admin ,Check_User_Phone, Check_Date, Check_Final_Price)" +
-                                 " VALUES(@Check_Admin, @Check_User_Phone, @Check_Date, @Check_Final_Price)";
+                        var sqlQuery = "INSERT INTO  Completed_Orders (Order_Products_Name ,Order_Price, Order_Discount, Order_Final_Price, Order_Chek_Id)" +
+                                 " VALUES(@Order_Products_Name, @Order_Price, @Order_Discount, @Order_Final_Price, @Order_Chek_Id)";
                         db.Execute(sqlQuery,
                            new
                            {
-                               Check_Admin = value.Check_Admin,
-                               Check_User_Phone = value.Check_User_Phone,
-                               Check_Date = value.Check_Date,
-                               Check_Final_Price = value.Check_Final_Price
-
+                               Order_Products_Name = value.Order_Products_Name,
+                               Order_Price = value.Order_Price,
+                               Order_Discount = value.Order_Discount,
+                               Order_Final_Price = value.Order_Final_Price,
+                               Order_Chek_Id = value.Order_Chek_Id
                            },
                            transaction);
                         transaction.Commit();
@@ -54,7 +45,7 @@ namespace Food_delivery_library.About_orders
             }
         }
 
-        public void Delete(Completed_Cheсk value)
+        public void Delete(Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -63,8 +54,8 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "DELETE FROM Completed_Check WHERE Check_Id = @Check_Id";
-                        db.Execute(sqlQuery, new { Check_Id= value.Check_Id }, transaction);
+                        var sqlQuery = "DELETE FROM  Completed_Orders WHERE Order_Id = @Order_Id";
+                        db.Execute(sqlQuery, new { value.Order_Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -76,23 +67,23 @@ namespace Food_delivery_library.About_orders
             }
         }
 
-        public Completed_Cheсk Get(int Id)
+        public Order Get(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Completed_Cheсk> GetColl()
+        public IEnumerable<Order> GetColl()
         {
-            List<Completed_Cheсk> coll = new List<Completed_Cheсk>();
+            List<Order> coll = new List<Order>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                coll = db.Query<Completed_Cheсk>("SELECT * FROM Completed_Check").ToList();
+                coll = db.Query<Order>("SELECT * FROM Completed_Orders").ToList();
             }
 
             return coll;
         }
 
-        public void Update(Completed_Cheсk value)
+        public void Update(Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -101,17 +92,18 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "UPDATE  Completed_Check SET Check_Admin = @Check_Admin ,Check_User_Phone =  @Check_User_Phone," +
-                            " Check_Date =  @Check_Date, Check_Final_Price = @Check_Final_Price" +
-                            " WHERE Check_Id = @Check_Id";
+                        var sqlQuery = "UPDATE  Completed_Orders SET Order_Products_Name = @Order_Products_Name ,Order_Price =  @Order_Price," +
+                            " Order_Discount =  @Order_Discount, Order_Final_Price = @Order_Final_Price, Order_Chek_Id = @Order_Chek_Id" +
+                            " WHERE Product_Id = @Product_Id";
                         db.Execute(sqlQuery,
                            new
                            {
-                               Check_Id = value.Check_Id,
-                               Check_Admin = value.Check_Admin,
-                               Check_User_Phone = value.Check_User_Phone,
-                               Check_Final_Price = value.Check_Final_Price,
-                               Check_Date = value.Check_Date
+                               Order_Products_Name = value.Order_Products_Name,
+                               Order_Chek_Id = value.Order_Chek_Id,
+                               Order_Price = value.Order_Price,
+                               Order_Discount = value.Order_Discount,
+                               Order_Final_Price = value.Order_Final_Price,
+                               Order_Id = value.Order_Id
                            },
                            transaction);
                         transaction.Commit();
