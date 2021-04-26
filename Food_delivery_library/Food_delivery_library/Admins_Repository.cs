@@ -3,6 +3,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace Food_delivery_library
     {
 
 
-        string connectionString = Resource.ConSTR;
+      //  string connectionString = Resource.ConSTR;
+        string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
         public IEnumerable<Admin> GetColl()
         {
             List<Admin> coll = new List<Admin>();

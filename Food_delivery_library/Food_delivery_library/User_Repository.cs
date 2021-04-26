@@ -2,6 +2,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Food_delivery_library
     }
     public partial class User_Repository : IRepository<User>
     {
-        string connectionString = Resource.ConSTR;
+        string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
 
         public void Create(User value)
         {

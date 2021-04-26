@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Food_delivery_library.About_orders
     }
   public  class Completed_Chek_Repository : IRepository<Completed_Cheсk>
     {
-        string connectionString = Resource.ConSTR;
+        string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
         public void Create(Completed_Cheсk value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))

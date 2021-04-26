@@ -2,6 +2,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace Food_delivery_library
     public partial class Products_Repository : IRepository<Product>
     {
       public  Product_Categories_Repository repository_Categories = new Product_Categories_Repository();
-        string connectionString = Resource.ConSTR;
+        string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
 
         public void Create(Product value)
         {

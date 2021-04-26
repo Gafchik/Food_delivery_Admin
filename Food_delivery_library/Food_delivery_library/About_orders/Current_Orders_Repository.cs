@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Food_delivery_library.About_orders
 
     public class Current_Orders_Repository : IRepository<Current_Order>
     {
-        string connectionString = Resource.ConSTR;
+        string connectionString = ConfigurationManager.ConnectionStrings["ConSTR"].ConnectionString;
         public void Create(Current_Order value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))

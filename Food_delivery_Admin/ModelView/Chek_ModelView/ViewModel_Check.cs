@@ -470,7 +470,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
         #endregion
 
-#
+
 
         #region go to main
 
