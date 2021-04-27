@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Check_View"
-        mc:Ignorable="d"
-        Title="Main_Check" WindowState="Maximized"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Управлени заказами" WindowState="Maximized"
     x:Name="Check_Main">
   
     <Grid x:Name="grid" Background="LightBlue"  >
@@ -27,9 +27,9 @@
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Check_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="10 0 20 0" />
-                <TextBlock Margin="0 0 5 0"> по номеру телефона :</TextBlock>
+                <TextBlock Margin="0 0 5 0"> по номеру заказа :</TextBlock>
                 <TextBox
-                         Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
+                         Text="{Binding Serch_Str_Current_Ch, UpdateSourceTrigger=PropertyChanged}" 
                          Width="80" HorizontalAlignment="Right" Margin="0 0 0 0"
                          FontSize="15" />
             </StackPanel>
@@ -46,7 +46,7 @@
                         <StackPanel>
                             <TextBlock  Text="{Binding Path=Check_Id}" FontSize="15"></TextBlock>
                             <TextBlock  Text="{Binding Path=Check_User_Phone}" FontSize="13" ></TextBlock>
-                            <TextBlock  Text="{Binding Path=Check_Data}" FontSize="13" ></TextBlock>
+                            <TextBlock  Text="{Binding Path=Check_Date}" FontSize="13" ></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -60,7 +60,7 @@
             <TextBlock  FontWeight="Bold"  Background="LightBlue" FontSize="15" Text="Номер клиента"></TextBlock>
             <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Current_Cheсk.Check_User_Phone, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="Дата закза"></TextBlock>
-            <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Current_Cheсk.Check_Data, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox IsEnabled="False" Text="{Binding  Selected_Item_Current_Cheсk.Check_Date, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock  FontWeight="Bold"   Background="LightBlue" FontSize="15" Text="В заказ входит"></TextBlock>
 
 
@@ -93,13 +93,14 @@
 
 <!--выполненые-->
 
-
+       
         <StackPanel Grid.RowSpan="5" Grid.Column="3" >
+            <DatePicker SelectedDate="{Binding Selected_Date, UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
             <StackPanel Orientation="Horizontal">
 
-                <TextBlock Margin="0 0 5 0"> по номеру телефона :</TextBlock>
+                <TextBlock Margin="0 0 5 0"> по номеру заказа :</TextBlock>
                 <TextBox
-                         Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
+                         Text="{Binding Serch_Str_Completed_Ch, UpdateSourceTrigger=PropertyChanged}" 
                          Width="80" HorizontalAlignment="Right" Margin="0 0 0 0"
                          FontSize="15" />
             </StackPanel>
@@ -111,7 +112,7 @@
                         <StackPanel>
                             <TextBlock  Text="{Binding Path=Check_Id}" FontSize="15"></TextBlock>
                             <TextBlock  Text="{Binding Path=Check_User_Phone}" FontSize="13" ></TextBlock>
-                            <TextBlock  Text="{Binding Path=Check_Data}" FontSize="13" ></TextBlock>
+                            <TextBlock  Text="{Binding Path=Check_Date}" FontSize="13" ></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -150,8 +151,8 @@
 
 
 
-        <Button Command="{Binding Ready}" Grid.Column="2" Grid.Row="0" Margin="10"
-                   VerticalAlignment="Bottom" Background="GreenYellow"
+        <Button Command="{Binding Ready}" Grid.Column="2" Grid.Row="1" Margin="10"
+                   VerticalAlignment="Top" Background="GreenYellow"
                     Content="В выполненые -->" HorizontalAlignment="Center"  />
         <Button Command="{Binding NotReady}" Grid.Column="2" Grid.Row="1" Margin="10"
                    VerticalAlignment="Bottom" Background="Red"

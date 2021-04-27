@@ -321,18 +321,29 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                 {
                     try
                     {
+                        List<int> q = new List<int>();
+                        current_CH_repository.GetColl().ToList().ForEach(i => q.Add(i.Check_Id));
+                        completed_CH_repository.GetColl().ToList().ForEach(i => q.Add(i.Check_Id));
+                        int temp;
+                        if (q.Count > 0)
+                            temp = q.Max() + 1;
+                        else
+                            temp = 1;
+                        GC.Collect(GC.GetGeneration(q));
                         current_CH_repository.Create(new Current_Cheсk
                         {
-                            
+
+                            Check_Id = temp,
                             Check_Admin = ViewModel_Admin.curent_Admin.Admins_Surname,
                             Check_Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                                             DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second),
                             Check_Final_Price = New_CH_Final_Price,
                             Check_User_Phone = Selected_Item_User_New_CH.User_Phone
-                        });
+                        }) ;
                     }
                     catch (Exception)
                     {
+                      
                         MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
@@ -366,7 +377,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                 serch_str_user_new_CH = value; OnPropertyChanged("Serch_Str_User_New_CH");
                 if (Users != null)
                     GC.Collect(GC.GetGeneration(Users));
-                Users = new ObservableCollection<User>(user_repository.GetColl().ToList().FindAll(i => i.User_Phone.ToLower().Contains(serch_str_user_new_CH.ToLower())));
+                Users = new ObservableCollection<User>(user_repository.GetColl().ToList().FindAll(i => i.User_Name.ToLower().Contains(serch_str_user_new_CH.ToLower())));
                 OnPropertyChanged("Users");
 
             }
@@ -403,7 +414,27 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
         #endregion
 
+
+
+
         #region current check
+
+        private string serch_str_current_ch =""; // строка поиска в текущих чеках по номеру чека
+
+        public string Serch_Str_Current_Ch
+        {
+            get { return serch_str_current_ch; }
+            set
+            {
+                serch_str_current_ch = value; OnPropertyChanged("Serch_Str_User_New_CH");
+                if (Current_Cheсks != null)
+                    GC.Collect(GC.GetGeneration(Current_Cheсks));
+                Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl().ToList().FindAll(i => i.Check_Id.ToString().ToLower().Contains(serch_str_current_ch.ToLower())));
+                OnPropertyChanged("Current_Cheсks");
+
+            }
+        }
+
         public ObservableCollection<Order> Coll_Product_Current_CH { get; set; } // колекция для списка продуктов текущего чека
      
         private Order selected_item_product_current_CH; // выбраный елемент для коллекции выше
@@ -479,7 +510,40 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
         #endregion
 
-        #region completed check
+        #region completed check 
+
+        private DateTime selected_date = DateTime.Now;
+        public DateTime Selected_Date
+        {
+            get { return selected_date; }
+            set
+            {
+                selected_date = value; OnPropertyChanged("selected_date");
+                Serch_Str_Completed_Ch = Serch_Str_Completed_Ch;
+            }
+        }
+
+
+
+        private string serch_str_completed_ch = ""; // строка поиска в выполненых чеках по номеру чека
+
+        public string Serch_Str_Completed_Ch
+        {
+            get { return serch_str_completed_ch; }
+            set
+            {
+                serch_str_completed_ch = value; OnPropertyChanged("Serch_Str_Completed_Ch");
+                if (Completed_Cheсks != null)
+                    GC.Collect(GC.GetGeneration(Completed_Cheсks));
+                Completed_Cheсks = new ObservableCollection<Completed_Cheсk>(completed_CH_repository.GetColl().ToList()
+                    .FindAll(i=> i.Check_Date.Day == Selected_Date.Day&&i.Check_Date.Month == Selected_Date.Month&& i.Check_Date.Year == Selected_Date.Year)
+                    .FindAll(i => i.Check_Id.ToString().ToLower().Contains(serch_str_completed_ch.ToLower())));
+                OnPropertyChanged("Completed_Cheсks");
+
+            }
+        }
+
+
         public ObservableCollection<Order> Coll_Product_Completed_CH { get; set; } // колекция для списка продуктов
 
         private Completed_Cheсk selected_item_completed_CH; // выбраный элемент для выполненых чеков
@@ -521,12 +585,12 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         }
 
 
-
+        
 
         #endregion
 
         #region go to completed
-        
+
 
         private RelayCommand ready; // добавить новый чек
 

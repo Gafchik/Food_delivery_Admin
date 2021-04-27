@@ -66,7 +66,7 @@ namespace Food_delivery_library.About_orders
                     try
                     {
                         var sqlQuery = "DELETE FROM Completed_Check WHERE Id = @Id";
-                        db.Execute(sqlQuery, new { Check_Id= value.Id }, transaction);
+                        db.Execute(sqlQuery, new { Id= value.Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)

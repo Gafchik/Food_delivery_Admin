@@ -31,7 +31,7 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "INSERT INTO  Current_Check (Check_Id, Check_Admin ,Check_User_Phone, Check_Date, Check_Final_Price)" +
+                        var sqlQuery = "INSERT INTO  Current_Cheсk (Check_Id, Check_Admin ,Check_User_Phone, Check_Date, Check_Final_Price)" +
                                  " VALUES(@Check_Id, @Check_Admin, @Check_User_Phone, @Check_Date, @Check_Final_Price)";
                         db.Execute(sqlQuery,
                            new
@@ -65,8 +65,8 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "DELETE FROM Current_Check WHERE Id = @Id";
-                        db.Execute(sqlQuery, new { Check_Id = value.Id }, transaction);
+                        var sqlQuery = "DELETE FROM Current_Cheсk WHERE Id = @Id";
+                        db.Execute(sqlQuery, new { Id = value.Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -88,7 +88,7 @@ namespace Food_delivery_library.About_orders
             List<Current_Cheсk> coll = new List<Current_Cheсk>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                coll = db.Query<Current_Cheсk>("SELECT * FROM Current_Check").ToList();
+                coll = db.Query<Current_Cheсk>("SELECT * FROM Current_Cheсk ").ToList();
             }
 
             return coll;
@@ -103,7 +103,7 @@ namespace Food_delivery_library.About_orders
                 {
                     try
                     {
-                        var sqlQuery = "UPDATE  Current_Check SET Check_Admin = @Check_Admin ,Check_User_Phone =  @Check_User_Phone," +
+                        var sqlQuery = "UPDATE  Current_Cheсk SET Check_Admin = @Check_Admin, Check_User_Phone =  @Check_User_Phone," +
                             " Check_Date =  @Check_Date, Check_Final_Price = @Check_Final_Price, Check_Id = @Check_Id" +
                             " WHERE Id = @Id ";
                         db.Execute(sqlQuery,

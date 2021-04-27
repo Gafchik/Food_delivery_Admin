@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Products_View"
-        mc:Ignorable="d"
-        Title="Main_Products" WindowState="Maximized"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Меню товаров" WindowState="Maximized"
     x:Name="Products_Main">
     <Grid Background="LightBlue"  >
         <Grid.ColumnDefinitions>

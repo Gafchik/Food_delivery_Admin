@@ -162,7 +162,7 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
                         products_Repository.Update(Selected_Item);
                         MessageBox.Show("Информация обновлена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);                       
                     }

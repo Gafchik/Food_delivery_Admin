@@ -141,7 +141,7 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
                     {
                         MessageBox.Show("Нельзя удалить категорию в которой есть продукты", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    catch (Exception ex)
+                    catch (Exception )
                     {
                         MessageBox.Show("Операция не успешна", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);                       
                     }
