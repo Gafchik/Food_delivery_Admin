@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Food_delivery_Admin.View.Category_View"
         mc:Ignorable="d" ResizeMode="NoResize"
-        Title="Категории" WindowState="Maximized"
+        Title="Меню категорий" WindowState="Maximized"
     x:Name="Categories_Main">
     <Grid Background="LightBlue"  >
         <Grid.ColumnDefinitions>
@@ -13,16 +13,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel >
-            <Menu DockPanel.Dock="Top" >
-                <MenuItem Header="Действия">
-                    <MenuItem  Header="Добавить" Command="{Binding New_category}"   />
-
-                </MenuItem>
-            </Menu>
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Categories_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                <Button Command="{Binding New_category}"                   
+                    Content="Добавить" HorizontalAlignment="Left" Margin="0 0 20 0" />
                 <TextBlock Margin="0 0 5 0"> по  названию :</TextBlock>
                 <TextBox x:Name="serch_box"
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 

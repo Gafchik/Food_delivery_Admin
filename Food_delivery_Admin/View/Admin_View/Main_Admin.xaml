@@ -14,17 +14,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel >
-            <Menu DockPanel.Dock="Top" >
-                <MenuItem Header="Действия">
-                    <MenuItem  Header="Добавить" Command="{Binding New_item}"   />
-                    
-                </MenuItem>
-            </Menu>
             <StackPanel Orientation="Horizontal">
                 
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=Admin_Main}"
                     Content="Назад" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                <Button Command="{Binding New_item}"                   
+                    Content="Добавить" HorizontalAlignment="Left" Margin="0 0 20 0" />
                 <TextBlock Margin="0 0 5 0"> по фамилии :</TextBlock>
                 <TextBox x:Name="serch_box"
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
