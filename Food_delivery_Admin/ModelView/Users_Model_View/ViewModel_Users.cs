@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Food_delivery_Admin.ModelView.Users_Model_View
@@ -22,18 +23,22 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
         #region init
         public ViewModel_Users() { InitializeComponent(); }
 
-        public void InitializeComponent()
+        public async void InitializeComponent()
         {
-           
-            if (Users != null)
-                Users.Clear();
-            Users = new ObservableCollection<User>(user_repository.GetColl());
-            OnPropertyChanged("Users");
-
-            if (Blocked_Users != null)
-                Blocked_Users.Clear();
-            Blocked_Users = new ObservableCollection<Blocked_user>(blocked_users_repository.GetColl());
-            OnPropertyChanged("Blocked_Users");
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Users != null)
+                    Users.Clear();
+                Users = new ObservableCollection<User>(user_repository.GetColl());
+                OnPropertyChanged("Users");
+            }));
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Blocked_Users != null)
+                    Blocked_Users.Clear();
+                Blocked_Users = new ObservableCollection<Blocked_user>(blocked_users_repository.GetColl());
+                OnPropertyChanged("Blocked_Users");
+            }));
 
         }
         #endregion
@@ -101,7 +106,7 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
         private RelayCommand block; // открыть окно  с админами
         public RelayCommand Block
         {
-            get { return block ?? (block = new RelayCommand(act =>
+            get { return block ?? (block = new RelayCommand(async (act) =>
             {
                 if (Selected_Item != null)
                 {
@@ -113,9 +118,15 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                         Blocked_user_Bank_card = Selected_Item.User_Bank_card,
                         Blocked_user_Surname = Selected_Item.User_Surname
                     };
-                    blocked_users_repository.Create(temp);
-                    user_repository.Delete(Selected_Item);
-                    GC.Collect(GC.GetGeneration(temp));
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        blocked_users_repository.Create(temp);
+                        GC.Collect(GC.GetGeneration(temp));
+                    }));
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        user_repository.Delete(Selected_Item);
+                    }));
                 }
                 else
                     MessageBox.Show("Вы не выбрали пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -123,13 +134,13 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
             })); }
         }
 
-
+      //  private async 
         private RelayCommand unblock; // открыть окно  с админами
         public RelayCommand UnBlock
         {
             get
             {
-                return unblock ?? (unblock = new RelayCommand(act =>
+                return unblock ?? (unblock = new RelayCommand(async(act) =>
                 {
                     if (Selected_Item_Block != null)
                     {
@@ -141,9 +152,15 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                             User_Bank_card = Selected_Item_Block.Blocked_user_Bank_card,
                             User_Surname = Selected_Item_Block.Blocked_user_Surname
                         };
-                        user_repository.Create(temp);
-                        blocked_users_repository.Delete(Selected_Item_Block);
-                        GC.Collect(GC.GetGeneration(temp));
+                        await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            user_repository.Create(temp);
+                            GC.Collect(GC.GetGeneration(temp));
+                        }));
+                        await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            blocked_users_repository.Delete(Selected_Item_Block);
+                        }));
                     }
                     else
                         MessageBox.Show("Вы не выбрали пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -151,6 +168,7 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                 }));
             }
         }
+
 
         private RelayCommand new_item; // открыть окно  с админами
         public RelayCommand New_item

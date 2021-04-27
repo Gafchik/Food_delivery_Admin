@@ -23,16 +23,19 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.RowSpan="5" >
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding Go_to_Main}"
-                    CommandParameter="{Binding ElementName=User_Main}"
-                    Content="Назад" HorizontalAlignment="Left" Margin="10 0 20 0" />
-                <Button Command="{Binding New_item}"                   
-                    Content="Добавить" HorizontalAlignment="Left" Margin="0 0 20 0" />
                 <TextBlock Margin="0 0 5 0"> по номеру телефона :</TextBlock>
                 <TextBox
                          Text="{Binding Serch_str, UpdateSourceTrigger=PropertyChanged}" 
                          Width="80" HorizontalAlignment="Right" Margin="0 0 0 0"
                          FontSize="15" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding Go_to_Main}"
+                    CommandParameter="{Binding ElementName=User_Main}"
+                    Content="Назад" HorizontalAlignment="Left" Margin="10 0 20 0" />
+                <Button Command="{Binding New_item}"                   
+                    Content="Добавить" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                
             </StackPanel>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Users}"  Background="LightBlue"
                      SelectedItem="{Binding Selected_Item}">

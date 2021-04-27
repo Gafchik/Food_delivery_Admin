@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -59,51 +60,70 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         #endregion
         public ViewModel_Check() { InitializeComponent(); }
 
-        public void InitializeComponent()
+        public async void InitializeComponent()
         {
-                      
-            if (Completed_Cheсks != null)
-                Completed_Cheсks.Clear();
-            Completed_Cheсks = new ObservableCollection<Completed_Cheсk>(completed_CH_repository.GetColl());
-            OnPropertyChanged("Completed_Cheсks");
-            
-            if (Current_Cheсks != null)
-                Current_Cheсks.Clear();
-            Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
-            OnPropertyChanged("Current_Cheсks");
-            
-            if (Current_Orders != null)
-                Current_Orders.Clear();
-            Current_Orders = new ObservableCollection<Order>(current_order_repository.GetColl());
-            OnPropertyChanged("Current_Orders");
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate  
+            {
+                
+                    if (Completed_Cheсks != null)
+                        Completed_Cheсks.Clear();
+                    Completed_Cheсks = new ObservableCollection<Completed_Cheсk>(completed_CH_repository.GetColl());
+                    OnPropertyChanged("Completed_Cheсks");
+                
+            }));
 
-            if (Completed_Orders != null)
-                Completed_Orders.Clear();
-            Completed_Orders = new ObservableCollection<Order>(completed_order_repository.GetColl());
-            OnPropertyChanged("Completed_Orders");
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Current_Cheсks != null)
+                    Current_Cheсks.Clear();
+                Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
+                OnPropertyChanged("Current_Cheсks");
+            }));
 
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Current_Orders != null)
+                    Current_Orders.Clear();
+                Current_Orders = new ObservableCollection<Order>(current_order_repository.GetColl());
+                OnPropertyChanged("Current_Orders");
+            }));
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Completed_Orders != null)
+                    Completed_Orders.Clear();
+                Completed_Orders = new ObservableCollection<Order>(completed_order_repository.GetColl());
+                OnPropertyChanged("Completed_Orders");
+            }));
 
-            if (Users != null)
-                Users.Clear();
-            Users = new ObservableCollection<User>(user_repository.GetColl());
-            OnPropertyChanged("Users");                   
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Users != null)
+                    Users.Clear();
+                Users = new ObservableCollection<User>(user_repository.GetColl());
+                OnPropertyChanged("Users");
+            }));
 
-            if (Admins != null)
-                Admins.Clear();
-            Admins = new ObservableCollection<Admin>(admin_repository.GetColl());
-            OnPropertyChanged("Admins");
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Admins != null)
+                    Admins.Clear();
+                Admins = new ObservableCollection<Admin>(admin_repository.GetColl());
+                OnPropertyChanged("Admins");
+            }));
 
-            if (Product_categories != null)
-                GC.Collect(GC.GetGeneration(Product_categories));
-            Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
-            OnPropertyChanged("Product_Categories");
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                if (Product_categories != null)
+                    GC.Collect(GC.GetGeneration(Product_categories));
+                Product_categories = new ObservableCollection<Product_Categories>(poduct_Categories_Repository.GetColl());
+                OnPropertyChanged("Product_Categories");
 
-            if (Products != null)
-                GC.Collect(GC.GetGeneration(Products));
-            Products = new ObservableCollection<Product>(products_Repository.GetColl());
-            Products.ToList().ForEach(i => i.Product_category = Product_categories.ToList().Find(j => j.Product_category_Id == i.Product_category_Id));
-            OnPropertyChanged("Products");
-
+                if (Products != null)
+                    GC.Collect(GC.GetGeneration(Products));
+                Products = new ObservableCollection<Product>(products_Repository.GetColl());
+                Products.ToList().ForEach(i => i.Product_category = Product_categories.ToList().Find(j => j.Product_category_Id == i.Product_category_Id));
+                OnPropertyChanged("Products");
+            }));
 
         }
         #endregion
@@ -598,11 +618,11 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         {
             get
             {
-                return ready ?? (ready = new RelayCommand(act =>
+                return ready ?? (ready = new RelayCommand(async (act) => 
                 {
                     if (Selected_Item_Current_Cheсk == null)
                         return;
-                    completed_CH_repository.Create(new Completed_Cheсk
+                    Completed_Cheсk temp_check = new Completed_Cheсk
                     {
                         Check_Id = Selected_Item_Current_Cheсk.Check_Id,
                         Check_Admin = Selected_Item_Current_Cheсk.Check_Admin,
@@ -613,10 +633,18 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                                             Selected_Item_Current_Cheсk.Check_Date.Minute,
                                             Selected_Item_Current_Cheсk.Check_Date.Second),
                         Check_Final_Price = Selected_Item_Current_Cheсk.Check_Final_Price,
-                        Check_User_Phone = Selected_Item_Current_Cheсk.Check_User_Phone                        
-                    });
+                        Check_User_Phone = Selected_Item_Current_Cheсk.Check_User_Phone
+                    };
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        completed_CH_repository.Create(temp_check);
+                        GC.Collect(GC.GetGeneration(temp_check));
+                    }));
 
-                    Coll_Product_Current_CH.ToList().ForEach(i =>
+
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        Coll_Product_Current_CH.ToList().ForEach(i =>
                     {
                         completed_order_repository.Create(new Order
                         {
@@ -624,14 +652,19 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                             Order_Final_Price = i.Order_Final_Price,
                             Order_Price = i.Order_Price,
                             Order_Products_Name = i.Order_Products_Name,
-                            Order_Chek_Id = completed_CH_repository.GetColl().ToList()
-                            .Find(j => j.Check_User_Phone == Selected_Item_Current_Cheсk.Check_User_Phone &&
-                            j.Check_Id == Selected_Item_Current_Cheсk.Check_Id).Check_Id
+                            Order_Chek_Id = i.Order_Chek_Id
                         });
                     });
-                
-                    Coll_Product_Current_CH.ToList().ForEach(i => current_order_repository.Delete(i)) ;
-                    current_CH_repository.Delete(Selected_Item_Current_Cheсk);
+                    }));
+
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        Coll_Product_Current_CH.ToList().ForEach(i => current_order_repository.Delete(i));
+                    }));
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        current_CH_repository.Delete(Selected_Item_Current_Cheсk);
+                    }));
                     InitializeComponent();
                 }));
             }
@@ -647,11 +680,11 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         {
             get
             {
-                return notready ?? (notready = new RelayCommand(act =>
+                return notready ?? (notready = new RelayCommand(async (act) =>
                 {
                     if (Selected_Item_Completed_CH == null)
                         return;
-                    current_CH_repository.Create(new Current_Cheсk
+                    Current_Cheсk current_Cheсk = new Current_Cheсk
                     {
                         Check_Id = Selected_Item_Completed_CH.Check_Id,
                         Check_Admin = Selected_Item_Completed_CH.Check_Admin,
@@ -661,31 +694,39 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                                             Selected_Item_Completed_CH.Check_Date.Hour,
                                             Selected_Item_Completed_CH.Check_Date.Minute,
                                             Selected_Item_Completed_CH.Check_Date.Second),
-                      
+
                         Check_Final_Price = Selected_Item_Completed_CH.Check_Final_Price,
                         Check_User_Phone = Selected_Item_Completed_CH.Check_User_Phone
-                    });
-
-
-                    Coll_Product_Completed_CH.ToList().ForEach(i =>
+                    };
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        current_order_repository.Create(new Order
+                        current_CH_repository.Create(current_Cheсk);
+                        GC.Collect(GC.GetGeneration(current_Cheсk));
+                    }));
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        Coll_Product_Completed_CH.ToList().ForEach(i =>
                         {
-                            Order_Discount = i.Order_Discount,
-                            Order_Final_Price = i.Order_Final_Price,
-                            Order_Price = i.Order_Price,
-                            Order_Products_Name = i.Order_Products_Name,
-                            Order_Chek_Id = current_CH_repository.GetColl().ToList()
-                            .Find(j => j.Check_User_Phone == Selected_Item_Completed_CH.Check_User_Phone &&
-                            j.Check_Id == Selected_Item_Completed_CH.Check_Id).Check_Id
-                        });
-                    });
+                             current_order_repository.Create(new Order
+                           {
+                              Order_Discount = i.Order_Discount,
+                              Order_Final_Price = i.Order_Final_Price,
+                              Order_Price = i.Order_Price,
+                               Order_Products_Name = i.Order_Products_Name,
+                              Order_Chek_Id = i.Order_Chek_Id
+                           });
+                         });
+                    }));
 
 
-
-                    Coll_Product_Completed_CH.ToList().ForEach(i => completed_order_repository.Delete(i));
-                    OnPropertyChanged("Coll_Product_Completed_CH");
-                    completed_CH_repository.Delete(Selected_Item_Completed_CH);
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        Coll_Product_Completed_CH.ToList().ForEach(i => completed_order_repository.Delete(i));
+                    }));
+                    await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        completed_CH_repository.Delete(Selected_Item_Completed_CH);
+                    }));
                     InitializeComponent();
 
                 }));
