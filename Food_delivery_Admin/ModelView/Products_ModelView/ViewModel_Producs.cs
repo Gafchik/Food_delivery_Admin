@@ -123,7 +123,7 @@ namespace Food_delivery_Admin.ModelView.Products_ModelView
         {
             if (MessageBox.Show("Добавить продукт?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-            if (name == "" && discount == "" && price == "" && categories == null)
+            if (name == "" || discount == "" || price == "" || categories == null)
             { MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
             try
             {

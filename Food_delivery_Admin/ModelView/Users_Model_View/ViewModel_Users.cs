@@ -185,7 +185,7 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
         {
             if (MessageBox.Show("Добавить клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-            if (phone == "" && e_mail == "" && name == "" && surname == "")
+            if (phone == "" || e_mail == "" || name == "" || surname == "")
             { MessageBox.Show("Не все поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
                 user_repository.Create(new User
             {
