@@ -248,7 +248,7 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                             GC.Collect(GC.GetGeneration(Users));
                         Users = new ObservableCollection<User>(user_repository.GetColl());
 
-                        OnPropertyChanged("Admins");
+                        OnPropertyChanged("Users");
                         MessageBox.Show("Информация удалена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception)

@@ -32,12 +32,12 @@
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding Go_to_Main}"
                     CommandParameter="{Binding ElementName=User_Main}"
-                    Content="Назад" HorizontalAlignment="Left" Margin="10 0 20 0" />
+                    Content="Назад" HorizontalAlignment="Left" Margin="20 5 25 5" />
                 <Button Command="{Binding New_item}"                   
-                    Content="Добавить" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                    Content="Добавить" HorizontalAlignment="Left" Margin="0 5 20 5" />
+            <Button Command="{Binding Dell}" Margin="15 5 40 5 " Content="Удалить"  />
                 
             </StackPanel>
-            <Button Command="{Binding Dell}" Margin="25 5 40 5 " Content="Удалить"  FontSize="10"/>
             <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding Users}"  Background="LightBlue"
                      SelectedItem="{Binding Selected_Item}">
                 <ListBox.ItemTemplate>
