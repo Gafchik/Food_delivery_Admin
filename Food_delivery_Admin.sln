@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food_delivery_Admin", "Food
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food_delivery_library", "Food_delivery_library\Food_delivery_library\Food_delivery_library.csproj", "{47CBE345-DB45-4F24-BEAA-97B94C7A2C16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{5966030F-337C-4271-A93F-05C758E45237}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_Host_Library", "Client_Host_Library\Client_Host_Library.csproj", "{2579F5BF-6192-4361-BB7C-0E1C4131DAE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{47CBE345-DB45-4F24-BEAA-97B94C7A2C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47CBE345-DB45-4F24-BEAA-97B94C7A2C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47CBE345-DB45-4F24-BEAA-97B94C7A2C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5966030F-337C-4271-A93F-05C758E45237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5966030F-337C-4271-A93F-05C758E45237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5966030F-337C-4271-A93F-05C758E45237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5966030F-337C-4271-A93F-05C758E45237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2579F5BF-6192-4361-BB7C-0E1C4131DAE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2579F5BF-6192-4361-BB7C-0E1C4131DAE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2579F5BF-6192-4361-BB7C-0E1C4131DAE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2579F5BF-6192-4361-BB7C-0E1C4131DAE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
