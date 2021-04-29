@@ -1,4 +1,4 @@
-﻿using Host.Server_Lib;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace Client_Server_Library
                 operationContext = OperationContext.Current
             };
             nextId++;
-            //SendMsg(user.Name + " подключился к чату",0); //уведомление о новом пользователе
+           
             ServerUsers.Add(user);
             return user.Id;
         }
@@ -39,9 +39,9 @@ namespace Client_Server_Library
             }
         }
 
-        public void SendMsg(Type_Msg type, string chek_Id, string phone)
+        public void SendMsg( string chek_Id, string phone)
         {
-            ServerUsers[0].operationContext.GetCallbackChannel<INotification_Service_Callback>().MsgCallback(type, chek_Id, phone);
+            ServerUsers[0].operationContext.GetCallbackChannel<INotification_Service_Callback>().MsgCallback( chek_Id, phone);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Host.Server_Lib;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace Client_Server_Library
         void Dissonnect(int Id);
 
         [OperationContract(IsOneWay = true)]
-        void SendMsg(Type_Msg type,string chek_Id, string phone);
+        void SendMsg(string chek_Id, string phone);
     }
 }
 
@@ -27,5 +27,5 @@ namespace Client_Server_Library
 public interface INotification_Service_Callback
 {
     [OperationContract(IsOneWay = true)]
-    void MsgCallback(Type_Msg type, string chek_Id, string phone);
+    void MsgCallback( string chek_Id, string phone);
 }

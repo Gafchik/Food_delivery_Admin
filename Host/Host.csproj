@@ -49,7 +49,6 @@
     <Compile Include="Server_Lib\INotification_Service .cs" />
     <Compile Include="Server_Lib\Notification_Service .cs" />
     <Compile Include="Server_Lib\ServerUser.cs" />
-    <Compile Include="Server_Lib\Type_Msg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

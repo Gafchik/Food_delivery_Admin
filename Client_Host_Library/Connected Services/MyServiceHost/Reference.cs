@@ -9,70 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Client_Host_Library.MyServiceHost {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Type_Msg", Namespace="http://schemas.datacontract.org/2004/07/Host.Server_Lib")]
-    [System.SerializableAttribute()]
-    public partial class Type_Msg : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string msg_TitleField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string msg_textField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string msg_Title {
-            get {
-                return this.msg_TitleField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.msg_TitleField, value) != true)) {
-                    this.msg_TitleField = value;
-                    this.RaisePropertyChanged("msg_Title");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string msg_text {
-            get {
-                return this.msg_textField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.msg_textField, value) != true)) {
-                    this.msg_textField = value;
-                    this.RaisePropertyChanged("msg_text");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyServiceHost.INotification_Service", CallbackContract=typeof(Client_Host_Library.MyServiceHost.INotification_ServiceCallback))]
@@ -91,17 +28,17 @@ namespace Client_Host_Library.MyServiceHost {
         System.Threading.Tasks.Task DissonnectAsync(int Id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotification_Service/SendMsg")]
-        void SendMsg(Client_Host_Library.MyServiceHost.Type_Msg type, string chek_Id, string phone);
+        void SendMsg(string chek_Id, string phone);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotification_Service/SendMsg")]
-        System.Threading.Tasks.Task SendMsgAsync(Client_Host_Library.MyServiceHost.Type_Msg type, string chek_Id, string phone);
+        System.Threading.Tasks.Task SendMsgAsync(string chek_Id, string phone);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface INotification_ServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/INotification_Service/MsgCallback")]
-        void MsgCallback(Client_Host_Library.MyServiceHost.Type_Msg type, string chek_Id, string phone);
+        void MsgCallback(string chek_Id, string phone);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -148,12 +85,12 @@ namespace Client_Host_Library.MyServiceHost {
             return base.Channel.DissonnectAsync(Id);
         }
         
-        public void SendMsg(Client_Host_Library.MyServiceHost.Type_Msg type, string chek_Id, string phone) {
-            base.Channel.SendMsg(type, chek_Id, phone);
+        public void SendMsg(string chek_Id, string phone) {
+            base.Channel.SendMsg(chek_Id, phone);
         }
         
-        public System.Threading.Tasks.Task SendMsgAsync(Client_Host_Library.MyServiceHost.Type_Msg type, string chek_Id, string phone) {
-            return base.Channel.SendMsgAsync(type, chek_Id, phone);
+        public System.Threading.Tasks.Task SendMsgAsync(string chek_Id, string phone) {
+            return base.Channel.SendMsgAsync(chek_Id, phone);
         }
     }
 }

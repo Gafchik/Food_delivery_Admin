@@ -33,12 +33,12 @@ namespace Client_Server_Library
                 IsConnectd = false;
             }
         }
-       public void SendMsg(string chek_Id, string phone) => client.SendMsg(new Type_Msg(), chek_Id, phone);
+       public void SendMsg(string chek_Id, string phone) => client.SendMsg( chek_Id, phone);
 
 
-        public void MsgCallback(Type_Msg type, string chek_Id, string phone)
+        public void MsgCallback( string chek_Id, string phone)
         {           
-            MessageBox.Show(type.msg_text + chek_Id +" Номер клиента: " +phone, type.msg_Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Новый заказ № " + chek_Id +" Номер клиента: " +phone, "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
