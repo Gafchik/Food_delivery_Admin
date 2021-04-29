@@ -1,4 +1,4 @@
-﻿using Client_Server_Library;
+﻿
 using Food_delivery_Admin.View;
 using Food_delivery_Admin.View.Admin_View;
 using Food_delivery_Admin.View.Category_View;
@@ -18,7 +18,7 @@ namespace Food_delivery_Admin.ModelView
 {
     public class ViewModel_Admin : INotifyPropertyChanged
     {
-       public static Client_Host client_Host = new Client_Host();
+      
         
         public ObservableCollection<Admin> Admins { get; set; }
         private Admins_Repository admin_repository = new Admins_Repository();
@@ -266,8 +266,7 @@ namespace Food_delivery_Admin.ModelView
                     if(Admins.ToList().Exists(i=> i.Admins_Login == Temp_login) && Admins.ToList().Exists(i => i.Admins_Password == Temp_password))
                     {
                         Curent_Admin = Admins.ToList().FirstOrDefault(i => i.Admins_Login == Temp_login);
-                        OnPropertyChanged("Curent_Admin");
-                        client_Host.Connect(Curent_Admin.Admins_Name,Curent_Admin.Admins_Surname);
+                        OnPropertyChanged("Curent_Admin");                       
                         new Window_Main().Show();
                         ((Window)act).Close();
                        

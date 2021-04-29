@@ -83,7 +83,7 @@ namespace Food_delivery_Admin.ModelView.Categories_Model_View
             poduct_Categories_Repository.Create(new Product_Categories { Product_category_Name = category_name });     
             window.Close();
             OnPropertyChanged("Product_categories");
-            ViewModel_Admin.client_Host.SendMsg("1", "123");
+           
         }
 
 

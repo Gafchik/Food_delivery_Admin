@@ -225,17 +225,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client_Host_Library\Client_Host_Library.csproj">
-      <Project>{2579f5bf-6192-4361-bb7c-0e1c4131dae9}</Project>
-      <Name>Client_Host_Library</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Food_delivery_library\Food_delivery_library\Food_delivery_library.csproj">
       <Project>{47cbe345-db45-4f24-beaa-97b94c7a2c16}</Project>
       <Name>Food_delivery_library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Host\Host.csproj">
-      <Project>{5966030f-337c-4271-a93f-05c758e45237}</Project>
-      <Name>Host</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
