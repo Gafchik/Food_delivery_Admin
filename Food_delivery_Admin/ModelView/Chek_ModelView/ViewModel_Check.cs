@@ -65,7 +65,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         public async void InitializeComponent()
         {
             timer.Elapsed += Timer_Elapsed;
-            timer.Interval = 10000;
+            timer.Interval = 5000;
             timer.Start();
 
             await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate  
@@ -142,16 +142,15 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
             {
                 lock (this)
                 {
-                    int temp;
-                    Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
-                    OnPropertyChanged("Current_Cheсks");
-                    temp = Current_Cheсks.Count();
+                    int temp;                   
+                    
+                    temp = current_CH_repository.GetColl().Count();
                     if (temp > count_current_orders)
                     {
                         using (var Player = new SoundPlayer(Environment.CurrentDirectory + "\\Sound\\new_order.wav"))
-                        {
                             Player.PlaySync();
-                        }
+                        Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
+                        OnPropertyChanged("Current_Cheсks");
                     }
                     count_current_orders = temp;
                 }
@@ -545,15 +544,20 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         public RelayCommand Dell_item
         {            
             get { return dell_item ?? (dell_item = new RelayCommand(act => {
+                try
+                {
                 if (MessageBox.Show("Удалить чек?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     return;
                 current_order_repository.GetColl().ToList().FindAll(i => i.Order_Chek_Id == Selected_Item_Current_Cheсk.Check_Id)
                  .ForEach(i => current_order_repository.Delete(i));
                 current_CH_repository.Delete(Selected_Item_Current_Cheсk);
+                InitializeComponent();
 
-
-
-                InitializeComponent(); }));
+                }
+                catch (Exception) 
+                { MessageBox.Show("Повторите попытку", "Извине не вышло", MessageBoxButton.OK, MessageBoxImage.Exclamation); }
+               
+                 }));
             }
         }
         #endregion
