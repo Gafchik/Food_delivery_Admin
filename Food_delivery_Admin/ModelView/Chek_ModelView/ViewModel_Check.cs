@@ -11,8 +11,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -62,6 +64,10 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
 
         public async void InitializeComponent()
         {
+            timer.Elapsed += Timer_Elapsed;
+            timer.Interval = 10000;
+            timer.Start();
+
             await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate  
             {
                 
@@ -86,6 +92,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     Current_Orders.Clear();
                 Current_Orders = new ObservableCollection<Order>(current_order_repository.GetColl());
                 OnPropertyChanged("Current_Orders");
+                count_current_orders = Current_Cheсks.Count();               
             }));
             await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -126,7 +133,34 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
             }));
 
         }
+
         #endregion
+
+        private async void Timer_Elapsed(object sender, ElapsedEventArgs e) // таймер ивент типа слушатель
+        {
+            await Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                lock (this)
+                {
+                    int temp;
+                    Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
+                    OnPropertyChanged("Current_Cheсks");
+                    temp = Current_Cheсks.Count();
+                    if (temp > count_current_orders)
+                    {
+                        using (var Player = new SoundPlayer(Environment.CurrentDirectory + "\\Sound\\new_order.wav"))
+                        {
+                            Player.PlaySync();
+                        }
+                    }
+                    count_current_orders = temp;
+                }
+               
+            }));
+        }
+        public static Timer timer = new Timer();
+        public static int count_current_orders; 
+
 
         #region new check
 
@@ -433,9 +467,6 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
         }
 
         #endregion
-
-
-
 
         #region current check
 
