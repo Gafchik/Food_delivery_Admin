@@ -1,4 +1,5 @@
 ﻿
+using Food_delivery_library.Telegram_Bot;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +13,8 @@ namespace Food_delivery_Admin
     /// Логика взаимодействия для App.xaml
     /// </summary>
     public partial class App : Application
-    {      
+    {
+        TG_Bot bot = new TG_Bot();
     }
 }
 //  Host\\bin\\Debug\\Host.exe
