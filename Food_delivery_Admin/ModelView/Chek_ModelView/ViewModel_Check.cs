@@ -145,7 +145,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     int temp;                   
                     
                     temp = current_CH_repository.GetColl().Count();
-                    if (temp > count_current_orders)
+                    if (temp != count_current_orders)
                     {
                         using (var Player = new SoundPlayer(Environment.CurrentDirectory + "\\Sound\\new_order.wav"))
                             Player.PlaySync();
@@ -414,6 +414,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                             j.Check_Final_Price == New_CH_Final_Price).Check_Id
                         });
                     });
+                    count_current_orders++;
                     (act as Window).Close();
                 }));
             }

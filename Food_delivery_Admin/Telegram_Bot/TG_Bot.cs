@@ -2,12 +2,7 @@
 using Food_delivery_library.About_orders;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telegram.Bot;
 
 namespace Food_delivery_library.Telegram_Bot
