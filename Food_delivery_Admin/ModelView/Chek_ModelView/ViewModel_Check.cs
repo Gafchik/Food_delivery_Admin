@@ -145,12 +145,18 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     int temp;                   
                     
                     temp = current_CH_repository.GetColl().Count();
-                    if (temp != count_current_orders)
+                    if (temp > count_current_orders)
                     {
-                        using (var Player = new SoundPlayer(Environment.CurrentDirectory + "\\Sound\\new_order.wav"))
-                            Player.PlaySync();
-                        Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
-                        OnPropertyChanged("Current_Cheсks");
+                        Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            using (var Player = new SoundPlayer(Environment.CurrentDirectory + "\\Sound\\new_order.wav"))
+                                Player.PlaySync();
+                        }));
+                        Task.Run(() => App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            Current_Cheсks = new ObservableCollection<Current_Cheсk>(current_CH_repository.GetColl());
+                            OnPropertyChanged("Current_Cheсks");
+                        }));
                     }
                     count_current_orders = temp;
                 }

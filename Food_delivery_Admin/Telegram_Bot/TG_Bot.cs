@@ -19,16 +19,16 @@ namespace Food_delivery_library.Telegram_Bot
         private Blocked_users_Repository blocked_users_repository = new Blocked_users_Repository();
         private Products_Repository products_Repository = new Products_Repository();
 
-       
-        private Current_Orders_Repository current_order_repository = new Current_Orders_Repository();    
-        private Current_Chek_Repository current_CH_repository = new Current_Chek_Repository();     
-        private Completed_Chek_Repository completed_CH_repository = new Completed_Chek_Repository();    
+
+        private Current_Orders_Repository current_order_repository = new Current_Orders_Repository();
+        private Current_Chek_Repository current_CH_repository = new Current_Chek_Repository();
+        private Completed_Chek_Repository completed_CH_repository = new Completed_Chek_Repository();
         private Completed_Orders_Repository completed_order_repository = new Completed_Orders_Repository();
 
         // private string token = "1479607829:AAG-h2ZKL84U2pxa-_6oEYTK00xlzdJsRbs";
         private string token = Resource1.TG_token;
 
-        private List<UserTG>  usersTG;
+        private List<UserTG> usersTG;
 
         private string def = "БОТ РАБОТАЕТ ТОЛЬКО В РАБОЧЕЕ ВРЕМЯ =)\n" + "Напиши мне :\n" +
                                     "1 ==> Узнать скидках на продукты =)\n" +
@@ -49,9 +49,9 @@ namespace Food_delivery_library.Telegram_Bot
             var msg = e.Message;
             if (msg == null)
                 return;
-            if(!usersTG.Exists(i=> i.chatID == e.Message.Chat.Id))
+            if (!usersTG.Exists(i => i.chatID == e.Message.Chat.Id))
             {
-                if(blocked_users_repository.GetColl().ToList().Exists(i=> i.Blocked_user_Phone == e.Message.Text))
+                if (blocked_users_repository.GetColl().ToList().Exists(i => i.Blocked_user_Phone == e.Message.Text))
                 {
                     await client.SendTextMessageAsync(e.Message.Chat.Id,
                   "Простите но вы заблокированы =(",
@@ -105,7 +105,7 @@ namespace Food_delivery_library.Telegram_Bot
         }
         private string GetDiscount()
         {
-            string rezult ="";
+            string rezult = "";
             products_Repository.GetColl().ToList().FindAll(i => i.Product_Discount != 0)
                 .ForEach(i => rezult += i.Product_Name + " ==> Скидка : " + i.Product_Discount + " %\n\n");
             return rezult + "\n" + def; ;
@@ -114,8 +114,8 @@ namespace Food_delivery_library.Telegram_Bot
         private string GetCurrentChek(Telegram.Bot.Args.MessageEventArgs e)
         {
             string rezult = "";
-          var chek =  current_CH_repository.GetColl().ToList()
-                .FindAll(i => i.Check_User_Phone == usersTG.Find(j => j.chatID == e.Message.Chat.Id).phone);
+            var chek = current_CH_repository.GetColl().ToList()
+                  .FindAll(i => i.Check_User_Phone == usersTG.Find(j => j.chatID == e.Message.Chat.Id).phone);
             foreach (var i in chek)
             {
                 rezult += "Номер заказа : " + i.Check_Id + "\n" +
@@ -123,14 +123,14 @@ namespace Food_delivery_library.Telegram_Bot
                                        "Дата заказа : " + i.Check_Date + "\n" +
                                        "Спиок продуктов : \n";
                 current_order_repository.GetColl().ToList()
-                                      .FindAll(j => j.Order_Chek_Id == i.Check_Id).ForEach(j=> rezult+=j.Order_Products_Name+"\n");
+                                      .FindAll(j => j.Order_Chek_Id == i.Check_Id).ForEach(j => rezult += j.Order_Products_Name + "\n");
                 rezult += "Общая стоимость заказа : " + i.Check_Final_Price + "\n";
                 rezult += "Статус заказа : Bыполняется\n";
                 rezult += "=======================\n";
             }
-            return rezult+"\n"+def;
+            return rezult + "\n" + def;
         }
-       
+
         private string GetHistory(Telegram.Bot.Args.MessageEventArgs e)
         {
             string rezult = "";
