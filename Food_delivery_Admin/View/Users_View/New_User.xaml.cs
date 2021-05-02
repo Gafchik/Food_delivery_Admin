@@ -28,7 +28,7 @@ namespace Food_delivery_Admin.View.Users_View
         }
       
 
-        private void Add_Click(object sender, RoutedEventArgs e) => (DataContext as ViewModel_Users).Add_new(Name.Text,Surname.Text,Phone.Text,E_mail.Text,this,Card.Text);
+        private void Add_Click(object sender, RoutedEventArgs e) => (DataContext as ViewModel_Users).Add_new(Name.Text,Surname.Text,Phone.Text,Pass.Text,E_mail.Text,this,Card.Text);
 
     }
 }

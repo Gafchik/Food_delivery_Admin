@@ -181,7 +181,7 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
         {
             get { return cansel_new ?? (cansel_new = new RelayCommand(act => { (act as Window).Close(); })); }
         }
-        internal void Add_new( string name, string surname,string phone, string e_mail, Window window, string bank) //кнопка добавления нового админа
+        internal void Add_new( string name, string surname,string phone,string pass, string e_mail, Window window, string bank) //кнопка добавления нового админа
         {
             if (MessageBox.Show("Добавить клиента?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
@@ -193,10 +193,10 @@ namespace Food_delivery_Admin.ModelView.Users_Model_View
                User_Surname = surname,
                User_Phone = phone,
                User_Email = e_mail,
-               User_Bank_card = bank
-               
-               
-            });
+               User_Bank_card = bank,
+               User_Temp_password = pass
+
+                });
             window.Close();
             OnPropertyChanged("Admins");
         }
