@@ -26,7 +26,7 @@ namespace Food_delivery_Admin.View.Check_View.Ceck_Edit
         {
             InitializeComponent();
             DataContext = new ViewModel_Check();
-            id = current_Check.Id;
+            id = current_Check.Check_Id;
         }
     }
 }

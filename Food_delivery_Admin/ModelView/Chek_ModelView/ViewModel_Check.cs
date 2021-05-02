@@ -326,6 +326,7 @@ namespace Food_delivery_Admin.ModelView.Chek_ModelView
                     {
                         current_order_repository.Create(new Order
                         {
+                            
                             Order_Chek_Id = Edit_Order_in_Chek.id,
                             Order_Discount = (float)Selected_Item_Product_New_Or.Product_Discount,
                             Order_Final_Price = (float)Selected_Item_Product_New_Or.Product_Price,
