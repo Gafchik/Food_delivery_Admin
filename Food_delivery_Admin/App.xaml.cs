@@ -17,4 +17,3 @@ namespace Food_delivery_Admin
         TG_Bot bot = new TG_Bot();
     }
 }
-//  Host\\bin\\Debug\\Host.exe
